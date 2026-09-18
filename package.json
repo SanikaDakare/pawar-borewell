@@ -12,5 +12,8 @@
     "next": "latest",
     "react": "latest",
     "react-dom": "latest"
+  },
+  "devDependencies": {
+    "vercel": "^59.20.0"
   }
 }

@@ -4,10 +4,14 @@ Mobile-first one-page marketing site for Pawar Borewell's & Trader's, serving Ko
 
 ## Run locally
 
-Open `index.html` in a browser. No build step is required.
+```bash
+pnpm install
+pnpm dev
+```
+
+The site is a production-ready Next.js/React application. Vercel automatically detects and builds it.
 
 ## Before publishing
 
-- Replace the text logo in `index.html` with the supplied logo asset once available.
-- Update the business name/address and Google Business Profile URL when confirmed.
-- Add real work photos with descriptive alt text for stronger local SEO.
+- Add a final vector business logo when available.
+- Update the Google Business Profile URL when confirmed.
