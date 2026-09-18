@@ -1,5 +1,6 @@
 import './globals.css';
 import './directions.css';
+import './contact.css';
 
 export const metadata = {
   title: "Pawar Borewell's & Trader's | Borewell Service in Kolhapur",
