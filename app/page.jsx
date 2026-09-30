@@ -20,7 +20,7 @@ const content = {
     heroKicker: '25 years of borewell solutions · Kolhapur', heroBefore: 'Water starts with the', heroAccent: 'right borewell.',
     heroLead: 'Borewell drilling, pumps, pipe, cable and essential parts—chosen for homes, farms, commercial sites and industries.',
     stats: [['25 years', 'practical experience'], ['Products + service', 'one local team'], ['On enquiry', 'right-size guidance']],
-    audiences: ['Agricultural', 'Residential', 'Commercial', 'Drilling · pumps · supplies'],
+    audiences: ['Agricultural', 'Residential', 'Commercial', 'Drilling · pumps · supplies'], rangeLabel: 'Complete product range', brandsLabel: 'Brands and product families we supply',
     introKicker: 'A complete water-system partner', introHeading: <>From underground water to a working <em>water line.</em></>,
     introBody: 'Every borewell needs the right pump, cable, pipe and protection. We help you decide what fits the depth, requirement and site—not just what is on the shelf.',
     servicesKicker: 'Services', servicesHeading: 'One team. Every step.', servicesBody: 'Practical support for a new borewell, a repair need or the complete pump installation.',
@@ -39,7 +39,7 @@ const content = {
     heroKicker: 'बोअरवेल सोल्यूशन्सचा २५ वर्षांचा अनुभव · कोल्हापूर', heroBefore: 'पाण्याची सुरुवात योग्य', heroAccent: 'बोअरवेलने होते.',
     heroLead: 'बोअरवेल ड्रिलिंग, पंप, पाईप, केबल आणि आवश्यक साहित्य—घर, शेती, व्यवसाय व उद्योगांसाठी योग्य निवड.',
     stats: [['२५ वर्षे', 'प्रत्यक्ष अनुभव'], ['उत्पादने + सेवा', 'एक स्थानिक टीम'], ['चौकशीनुसार', 'योग्य मार्गदर्शन']],
-    audiences: ['शेतीसाठी', 'घरासाठी', 'व्यावसायिक', 'ड्रिलिंग · पंप · साहित्य'],
+    audiences: ['शेतीसाठी', 'घरासाठी', 'व्यावसायिक', 'ड्रिलिंग · पंप · साहित्य'], rangeLabel: 'संपूर्ण उत्पादन श्रेणी', brandsLabel: 'आम्ही पुरवठा करत असलेले ब्रँड आणि उत्पादन प्रकार',
     introKicker: 'संपूर्ण वॉटर-सिस्टम भागीदार', introHeading: <>भूजलापासून कार्यरत <em>पाण्याच्या लाईनपर्यंत.</em></>,
     introBody: 'प्रत्येक बोअरवेलला योग्य पंप, केबल, पाईप आणि संरक्षणाची गरज असते. फक्त उपलब्ध माल नव्हे, तर खोली, गरज आणि साइटनुसार योग्य पर्याय सुचवतो.',
     servicesKicker: 'सेवा', servicesHeading: 'एक टीम. प्रत्येक टप्प्यावर.', servicesBody: 'नवीन बोअरवेल, दुरुस्तीची गरज किंवा संपूर्ण पंप इन्स्टॉलेशनसाठी व्यावहारिक मदत.',
@@ -58,7 +58,7 @@ const content = {
     heroKicker: 'बोरवेल समाधान का 25 वर्षों का अनुभव · कोल्हापुर', heroBefore: 'पानी की शुरुआत सही', heroAccent: 'बोरवेल से होती है।',
     heroLead: 'बोरवेल ड्रिलिंग, पंप, पाइप, केबल और जरूरी सामान—घर, खेत, व्यवसाय और उद्योगों के लिए सही चयन।',
     stats: [['25 वर्ष', 'व्यावहारिक अनुभव'], ['उत्पाद + सेवा', 'एक स्थानीय टीम'], ['पूछताछ पर', 'सही मार्गदर्शन']],
-    audiences: ['कृषि', 'आवासीय', 'व्यावसायिक', 'ड्रिलिंग · पंप · सामग्री'],
+    audiences: ['कृषि', 'आवासीय', 'व्यावसायिक', 'ड्रिलिंग · पंप · सामग्री'], rangeLabel: 'संपूर्ण उत्पाद रेंज', brandsLabel: 'हमारे सप्लाई किए जाने वाले ब्रांड और उत्पाद परिवार',
     introKicker: 'संपूर्ण वॉटर-सिस्टम पार्टनर', introHeading: <>भूमिगत जल से चालू <em>वॉटर लाइन तक।</em></>,
     introBody: 'हर बोरवेल को सही पंप, केबल, पाइप और सुरक्षा की जरूरत होती है। हम केवल उपलब्ध सामान नहीं, बल्कि गहराई, जरूरत और साइट के अनुसार सही विकल्प सुझाते हैं।',
     servicesKicker: 'सेवाएं', servicesHeading: 'एक टीम। हर चरण।', servicesBody: 'नए बोरवेल, मरम्मत की जरूरत या पूरे पंप इंस्टॉलेशन के लिए व्यावहारिक सहायता।',
@@ -86,6 +86,7 @@ export default function Home() {
     <main id="top">
       <section className="hero"><Image className="hero-image" src="/assets/drilling-site.jpeg" fill priority sizes="(max-width: 700px) 65vw, 45vw" alt="Pawar Borewell drilling rig at a Kolhapur site" /><div className="hero-shade" /><div className="shell hero-content"><p className="kicker light">{t.heroKicker}</p><h1>{t.heroBefore} <em>{t.heroAccent}</em></h1><p className="lead">{t.heroLead}</p><div className="actions"><a className="button white" href={`tel:+91${primaryPhone}`}>{t.call} <Arrow /></a><a className="button hero-whatsapp" href={wa('Hello, I want to enquire about borewell service in Kolhapur.')} target="_blank" rel="noopener">◔ {t.whatsapp}</a></div><div className="stats">{t.stats.map(([title, detail]) => <div key={title}><b>{title}</b><span>{detail}</span></div>)}</div></div></section>
       <section className="trust-strip"><div className="shell">{t.audiences.map((audience) => <span key={audience}>{audience}</span>)}</div></section>
+      <section className="brand-range"><div className="shell"><p>{t.rangeLabel}</p><div aria-label={t.brandsLabel}><b>SSP</b><b>Swaraj</b><b>Laxmi</b><b>Unique</b><b>Jain</b><b>UneeL</b></div></div></section>
       <section className="shell intro"><p className="kicker">{t.introKicker}</p><div><h2>{t.introHeading}</h2><p>{t.introBody}</p></div></section>
       <section className="services" id="services"><div className="shell"><div className="section-head"><div><p className="kicker">{t.servicesKicker}</p><h2>{t.servicesHeading}</h2></div><p>{t.servicesBody}</p></div><div className="cards">{t.services.map(([title, body, action], index) => <article className={`card ${index === 0 ? 'featured' : ''}`} key={title}><small>0{index + 1}</small><i aria-hidden="true">{index === 0 ? '⌄' : index === 1 ? '◌' : '⌁'}</i><h3>{title}</h3><p>{body}</p>{index === 0 ? <a href={wa('Hello, I want to discuss a borewell site.')} target="_blank" rel="noopener">{action} <Arrow /></a> : <span className="card-tag">{action}</span>}</article>)}</div></div></section>
       <section className="catalogue" id="products"><div className="shell"><div className="catalogue-head"><div><p className="kicker">{t.catalogueKicker}</p><h2>{t.catalogueHeading}</h2></div><p>{t.catalogueBody}</p></div><div className="product-grid">{t.products.map(([title, detail], index) => <article className="catalogue-card" key={title}><div className="catalogue-image"><Image src={productPhotos[index]} fill sizes="(max-width: 700px) 100vw, (max-width: 1000px) 50vw, 33vw" alt={title} /></div><div className="catalogue-copy"><span className="availability">{t.availability}</span><h3>{title}</h3><p>{detail}</p><a href={productEnquiry(title)} target="_blank" rel="noopener">{t.price} <Arrow /></a></div></article>)}</div></div></section>
