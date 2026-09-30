@@ -3,78 +3,97 @@
 import Image from 'next/image';
 import { useState } from 'react';
 
-const phone = '9421107110';
-const whatsapp = `https://wa.me/91${phone}?text=${encodeURIComponent('Hello, I want to enquire about borewell service in Kolhapur.')}`;
+const primaryPhone = '9421107110';
+const secondaryPhone = '7823007802';
 const directions = 'https://maps.app.goo.gl/Q7eD3jaKAxFDEyPf8?g_st=aw';
-
-const languages = {
-  en: { label: 'English', pre: 'Water starts with the', accent: 'right borewell.', call: 'Call now', explore: 'Explore products', wa: 'WhatsApp' },
-  mr: { label: 'मराठी', pre: 'पाण्याची सुरुवात योग्य', accent: 'बोअरवेलने होते.', call: 'कॉल करा', explore: 'उत्पादने पहा', wa: 'व्हॉट्सअॅप' },
-  hi: { label: 'हिन्दी', pre: 'पानी की शुरुआत सही', accent: 'बोरवेल से होती है।', call: 'कॉल करें', explore: 'उत्पाद देखें', wa: 'व्हाट्सऐप' },
-};
-
-const products = [
-  { title: 'Submersible pumps', detail: 'SSP, Swaraj & Laxmi options for agricultural and domestic water systems.', image: '/assets/products/submersible-pump.jpeg', alt: 'SSP submersible pump and motor' },
-  { title: 'Openwell pumps', detail: 'Compact 1 HP openwell pump options for homes, farms and surface-water needs.', image: '/assets/products/openwell-pump.jpeg', alt: 'Blue SSP openwell pump' },
-  { title: 'Pump guard & controllers', detail: 'Unique pump protection panels for dry-run, overload and voltage protection.', image: '/assets/products/pump-guard.jpeg', alt: 'Unique pump guard controller' },
-  { title: 'Submersible cables', detail: 'UneeL flat submersible cable—available in requirement-based sizes.', image: '/assets/products/submersible-cable.jpeg', alt: 'Blue UneeL submersible cable' },
-  { title: 'HDPE pipe', detail: 'Jain HDPE delivery pipe for borewell connections and water lines.', image: '/assets/products/hdpe-pipe.jpeg', alt: 'Coil of black HDPE pipe with blue stripe' },
-  { title: 'Ropes, fittings & accessories', detail: 'Nylon safety ropes, adapters, column-pipe fittings and installation accessories.', image: '/assets/products/fittings.jpeg', alt: 'Borewell fittings and installation accessories' },
+const wa = (message) => `https://wa.me/91${primaryPhone}?text=${encodeURIComponent(message)}`;
+const productPhotos = [
+  '/assets/products/submersible-pump.jpeg', '/assets/products/openwell-pump.jpeg',
+  '/assets/products/pump-guard.jpeg', '/assets/products/submersible-cable.jpeg',
+  '/assets/products/hdpe-pipe.jpeg', '/assets/products/fittings.jpeg',
 ];
 
-const productLink = (title) => `https://wa.me/91${phone}?text=${encodeURIComponent(`Hello, I need a price and availability for ${title}.`)}`;
-function Arrow() { return <span aria-hidden="true">↗</span>; }
+const content = {
+  en: {
+    name: 'English', nav: ['Services', 'Products', 'Why us', 'Location'], directions: 'Directions', call: 'Call now', whatsapp: 'WhatsApp',
+    heroKicker: '25 years of borewell solutions · Kolhapur', heroBefore: 'Water starts with the', heroAccent: 'right borewell.',
+    heroLead: 'Borewell drilling, pumps, pipe, cable and essential parts—chosen for homes, farms, commercial sites and industries.',
+    stats: [['25 years', 'practical experience'], ['Products + service', 'one local team'], ['On enquiry', 'right-size guidance']],
+    audiences: ['Agricultural', 'Residential', 'Commercial', 'Drilling · pumps · supplies'],
+    introKicker: 'A complete water-system partner', introHeading: <>From underground water to a working <em>water line.</em></>,
+    introBody: 'Every borewell needs the right pump, cable, pipe and protection. We help you decide what fits the depth, requirement and site—not just what is on the shelf.',
+    servicesKicker: 'Services', servicesHeading: 'One team. Every step.', servicesBody: 'Practical support for a new borewell, a repair need or the complete pump installation.',
+    services: [['Borewell drilling', 'Professional drilling for farms, homes, commercial buildings and industrial sites.', 'Discuss your site'], ['Cleaning & flushing', 'Support for existing borewells when water flow, cleanliness or performance needs attention.', 'Site-based guidance'], ['Pump installation', 'Product selection, installation accessories and practical assistance for water-system setup.', 'Pumps & materials']],
+    catalogueKicker: 'Product catalogue', catalogueHeading: <>Products for the<br /><em>complete setup.</em></>, catalogueBody: 'Ask for availability and a quotation on WhatsApp. We do not publish fixed prices because the right size and configuration depend on your requirement.',
+    products: [['Submersible pumps', 'SSP, Swaraj & Laxmi options for agricultural and domestic water systems.'], ['Openwell pumps', 'Compact 1 HP openwell pump options for homes, farms and surface-water needs.'], ['Pump guard & controllers', 'Unique pump protection panels for dry-run, overload and voltage protection.'], ['Submersible cables', 'UneeL flat submersible cable—available in requirement-based sizes.'], ['HDPE pipe', 'Jain HDPE delivery pipe for borewell connections and water lines.'], ['Ropes, fittings & accessories', 'Nylon safety ropes, adapters, column-pipe fittings and installation accessories.']],
+    availability: 'Available on enquiry', price: 'Get price on WhatsApp', whyKicker: "Why Pawar Borewell's", whyHeading: <>Local knowledge.<br /><em>Practical recommendations.</em></>,
+    whyBody: 'We work across Kolhapur and nearby Maharashtra with a focus on dependable equipment, transparent guidance and the needs of the actual site.',
+    reasons: ['Pumps from SSP, Swaraj & Laxmi', 'Pump guard & controller options', 'Motor and pump replacement support—terms apply'], guide: 'Product guidance before you buy.',
+    areaKicker: 'Service area', areaHeading: <>Kolhapur first.<br /><em>Maharashtra beyond.</em></>, areaBody: 'Based in Mudshingi, Kolhapur. We serve Kolhapur, Sangli, Satara, Konkan and surrounding Maharashtra areas depending on the requirement.', hours: 'Working hours: 9:30 AM – 8:00 PM', getDirections: 'Get directions',
+    faqKicker: 'Common questions', faqHeading: 'Before you enquire.', faqs: [['Can you recommend the right pump for my borewell?', 'Yes. Share your borewell depth, water requirement and the use—farm, home or commercial—on WhatsApp. We will guide you to a suitable option.'], ['Do you show product prices on the website?', 'No. Product availability, horsepower, cable size, pipe type and fittings differ by requirement. Use “Get price on WhatsApp” for a current quotation.'], ['Do you provide drilling and materials together?', 'Yes. We can discuss drilling, pump selection and the materials needed for a complete water setup.']],
+    contactKicker: "Let's discuss your requirement", contactHeading: 'Need a pump, borewell service or a site visit?', contactBody: 'Call or WhatsApp our local team with your location and requirement. We’ll help with the next practical step.', alsoCall: 'Additional call number',
+  },
+  mr: {
+    name: 'मराठी', nav: ['सेवा', 'उत्पादने', 'आमच्याबद्दल', 'ठिकाण'], directions: 'दिशा', call: 'कॉल करा', whatsapp: 'व्हॉट्सअॅप',
+    heroKicker: 'बोअरवेल सोल्यूशन्सचा २५ वर्षांचा अनुभव · कोल्हापूर', heroBefore: 'पाण्याची सुरुवात योग्य', heroAccent: 'बोअरवेलने होते.',
+    heroLead: 'बोअरवेल ड्रिलिंग, पंप, पाईप, केबल आणि आवश्यक साहित्य—घर, शेती, व्यवसाय व उद्योगांसाठी योग्य निवड.',
+    stats: [['२५ वर्षे', 'प्रत्यक्ष अनुभव'], ['उत्पादने + सेवा', 'एक स्थानिक टीम'], ['चौकशीनुसार', 'योग्य मार्गदर्शन']],
+    audiences: ['शेतीसाठी', 'घरासाठी', 'व्यावसायिक', 'ड्रिलिंग · पंप · साहित्य'],
+    introKicker: 'संपूर्ण वॉटर-सिस्टम भागीदार', introHeading: <>भूजलापासून कार्यरत <em>पाण्याच्या लाईनपर्यंत.</em></>,
+    introBody: 'प्रत्येक बोअरवेलला योग्य पंप, केबल, पाईप आणि संरक्षणाची गरज असते. फक्त उपलब्ध माल नव्हे, तर खोली, गरज आणि साइटनुसार योग्य पर्याय सुचवतो.',
+    servicesKicker: 'सेवा', servicesHeading: 'एक टीम. प्रत्येक टप्प्यावर.', servicesBody: 'नवीन बोअरवेल, दुरुस्तीची गरज किंवा संपूर्ण पंप इन्स्टॉलेशनसाठी व्यावहारिक मदत.',
+    services: [['बोअरवेल ड्रिलिंग', 'शेती, घरे, व्यावसायिक इमारती आणि औद्योगिक ठिकाणांसाठी व्यावसायिक ड्रिलिंग.', 'तुमच्या साइटबद्दल सांगा'], ['क्लिनिंग आणि फ्लशिंग', 'पाण्याचा प्रवाह, स्वच्छता किंवा कामगिरीसाठी विद्यमान बोअरवेलची मदत.', 'साइटनुसार मार्गदर्शन'], ['पंप इन्स्टॉलेशन', 'उत्पादन निवड, इन्स्टॉलेशन ॲक्सेसरीज आणि वॉटर-सिस्टम सेटअपसाठी मदत.', 'पंप आणि साहित्य']],
+    catalogueKicker: 'उत्पादन कॅटलॉग', catalogueHeading: <>संपूर्ण सेटअपसाठी<br /><em>योग्य उत्पादने.</em></>, catalogueBody: 'उपलब्धता आणि कोटेशनसाठी व्हॉट्सअॅपवर विचारा. एचपी, केबल, पाईप आणि फिटिंग्ज गरजेनुसार बदलत असल्याने निश्चित किंमत दिलेली नाही.',
+    products: [['सबमर्सिबल पंप', 'शेती आणि घरगुती वॉटर-सिस्टमसाठी SSP, Swaraj आणि Laxmi पर्याय.'], ['ओपनवेल पंप', 'घर, शेती आणि पृष्ठभागावरील पाण्यासाठी कॉम्पॅक्ट १ एचपी ओपनवेल पंप पर्याय.'], ['पंप गार्ड आणि कंट्रोलर', 'ड्राय रन, ओव्हरलोड आणि व्होल्टेज संरक्षणासाठी Unique पंप प्रोटेक्शन पॅनेल.'], ['सबमर्सिबल केबल', 'गरजेनुसार विविध साइजमध्ये UneeL फ्लॅट सबमर्सिबल केबल.'], ['एचडीपीई पाईप', 'बोअरवेल कनेक्शन आणि पाण्याच्या लाईनसाठी Jain एचडीपीई डिलिव्हरी पाईप.'], ['रोप, फिटिंग्ज आणि ॲक्सेसरीज', 'नायलॉन सेफ्टी रोप, ॲडॉप्टर, कॉलम-पाईप फिटिंग्ज आणि इन्स्टॉलेशन ॲक्सेसरीज.']],
+    availability: 'चौकशीनुसार उपलब्ध', price: 'व्हॉट्सअॅपवर किंमत विचारा', whyKicker: 'पवार बोअरवेल का?', whyHeading: <>स्थानिक अनुभव.<br /><em>व्यावहारिक शिफारसी.</em></>,
+    whyBody: 'आम्ही कोल्हापूर आणि जवळच्या महाराष्ट्रात काम करतो. विश्वासार्ह साहित्य, स्पष्ट मार्गदर्शन आणि प्रत्यक्ष साइटची गरज यावर आमचा भर असतो.',
+    reasons: ['SSP, Swaraj आणि Laxmi पंप पर्याय', 'पंप गार्ड आणि कंट्रोलर पर्याय', 'मोटर व पंप रिप्लेसमेंट सहाय्य—अटी लागू'], guide: 'खरेदीपूर्वी उत्पादन मार्गदर्शन.',
+    areaKicker: 'सेवा क्षेत्र', areaHeading: <>पहिले कोल्हापूर.<br /><em>नंतर महाराष्ट्र.</em></>, areaBody: 'मुदशिंगी, कोल्हापूर येथे स्थित. गरजेनुसार कोल्हापूर, सांगली, सातारा, कोकण आणि आसपासच्या महाराष्ट्रात सेवा.', hours: 'कामाची वेळ: सकाळी ९:३० ते रात्री ८:००', getDirections: 'दिशा मिळवा',
+    faqKicker: 'सामान्य प्रश्न', faqHeading: 'चौकशीपूर्वी जाणून घ्या.', faqs: [['माझ्या बोअरवेलसाठी योग्य पंप सुचवाल का?', 'होय. बोअरवेलची खोली, पाण्याची गरज आणि वापर—शेती, घर किंवा व्यवसाय—व्हॉट्सअॅपवर पाठवा. आम्ही योग्य पर्याय सुचवू.'], ['वेबसाइटवर उत्पादनांच्या किंमती दाखवता का?', 'नाही. उपलब्धता, एचपी, केबल साइज, पाईप प्रकार आणि फिटिंग्ज गरजेनुसार बदलतात. सध्याच्या कोटेशनसाठी व्हॉट्सअॅपवर विचारा.'], ['ड्रिलिंग आणि साहित्य दोन्ही मिळते का?', 'होय. संपूर्ण वॉटर सेटअपसाठी ड्रिलिंग, पंप निवड आणि आवश्यक साहित्याबद्दल चर्चा करू शकतो.']],
+    contactKicker: 'तुमच्या गरजेबद्दल बोलूया', contactHeading: 'पंप, बोअरवेल सेवा किंवा साइट व्हिजिट हवी आहे?', contactBody: 'तुमचे ठिकाण आणि गरज सांगून आमच्या स्थानिक टीमला कॉल किंवा व्हॉट्सअॅप करा. आम्ही पुढची योग्य पायरी सांगू.', alsoCall: 'अतिरिक्त कॉल नंबर',
+  },
+  hi: {
+    name: 'हिन्दी', nav: ['सेवाएं', 'उत्पाद', 'हमारे बारे में', 'स्थान'], directions: 'दिशा', call: 'कॉल करें', whatsapp: 'व्हाट्सऐप',
+    heroKicker: 'बोरवेल समाधान का 25 वर्षों का अनुभव · कोल्हापुर', heroBefore: 'पानी की शुरुआत सही', heroAccent: 'बोरवेल से होती है।',
+    heroLead: 'बोरवेल ड्रिलिंग, पंप, पाइप, केबल और जरूरी सामान—घर, खेत, व्यवसाय और उद्योगों के लिए सही चयन।',
+    stats: [['25 वर्ष', 'व्यावहारिक अनुभव'], ['उत्पाद + सेवा', 'एक स्थानीय टीम'], ['पूछताछ पर', 'सही मार्गदर्शन']],
+    audiences: ['कृषि', 'आवासीय', 'व्यावसायिक', 'ड्रिलिंग · पंप · सामग्री'],
+    introKicker: 'संपूर्ण वॉटर-सिस्टम पार्टनर', introHeading: <>भूमिगत जल से चालू <em>वॉटर लाइन तक।</em></>,
+    introBody: 'हर बोरवेल को सही पंप, केबल, पाइप और सुरक्षा की जरूरत होती है। हम केवल उपलब्ध सामान नहीं, बल्कि गहराई, जरूरत और साइट के अनुसार सही विकल्प सुझाते हैं।',
+    servicesKicker: 'सेवाएं', servicesHeading: 'एक टीम। हर चरण।', servicesBody: 'नए बोरवेल, मरम्मत की जरूरत या पूरे पंप इंस्टॉलेशन के लिए व्यावहारिक सहायता।',
+    services: [['बोरवेल ड्रिलिंग', 'खेतों, घरों, व्यावसायिक इमारतों और औद्योगिक स्थलों के लिए प्रोफेशनल ड्रिलिंग।', 'अपनी साइट पर बात करें'], ['क्लीनिंग और फ्लशिंग', 'पानी का प्रवाह, सफाई या प्रदर्शन सुधारने के लिए मौजूदा बोरवेल की सहायता।', 'साइट के अनुसार मार्गदर्शन'], ['पंप इंस्टॉलेशन', 'उत्पाद चयन, इंस्टॉलेशन एक्सेसरीज और वॉटर-सिस्टम सेटअप के लिए सहायता।', 'पंप और सामग्री']],
+    catalogueKicker: 'उत्पाद कैटलॉग', catalogueHeading: <>पूरे सेटअप के लिए<br /><em>सही उत्पाद।</em></>, catalogueBody: 'उपलब्धता और कोटेशन के लिए व्हाट्सऐप पर पूछें। एचपी, केबल, पाइप और फिटिंग जरूरत के अनुसार बदलते हैं, इसलिए निश्चित मूल्य प्रकाशित नहीं हैं।',
+    products: [['सबमर्सिबल पंप', 'कृषि और घरेलू वॉटर-सिस्टम के लिए SSP, Swaraj और Laxmi विकल्प।'], ['ओपनवेल पंप', 'घर, खेत और सतही जल की जरूरत के लिए कॉम्पैक्ट 1 एचपी ओपनवेल पंप विकल्प।'], ['पंप गार्ड और कंट्रोलर', 'ड्राई रन, ओवरलोड और वोल्टेज सुरक्षा के लिए Unique पंप प्रोटेक्शन पैनल।'], ['सबमर्सिबल केबल', 'जरूरत के अनुसार अलग-अलग आकारों में UneeL फ्लैट सबमर्सिबल केबल।'], ['एचडीपीई पाइप', 'बोरवेल कनेक्शन और पानी की लाइनों के लिए Jain एचडीपीई डिलीवरी पाइप।'], ['रस्सी, फिटिंग और एक्सेसरीज', 'नायलॉन सेफ्टी रस्सी, एडॉप्टर, कॉलम-पाइप फिटिंग और इंस्टॉलेशन एक्सेसरीज।']],
+    availability: 'पूछताछ पर उपलब्ध', price: 'व्हाट्सऐप पर कीमत पूछें', whyKicker: 'पवार बोरवेल क्यों?', whyHeading: <>स्थानीय अनुभव।<br /><em>व्यावहारिक सलाह।</em></>,
+    whyBody: 'हम कोल्हापुर और आसपास के महाराष्ट्र में काम करते हैं। हमारा ध्यान भरोसेमंद उपकरण, स्पष्ट मार्गदर्शन और वास्तविक साइट की जरूरत पर रहता है।',
+    reasons: ['SSP, Swaraj और Laxmi पंप विकल्प', 'पंप गार्ड और कंट्रोलर विकल्प', 'मोटर और पंप रिप्लेसमेंट सहायता—नियम लागू'], guide: 'खरीदने से पहले उत्पाद मार्गदर्शन।',
+    areaKicker: 'सेवा क्षेत्र', areaHeading: <>पहले कोल्हापुर।<br /><em>फिर महाराष्ट्र।</em></>, areaBody: 'मुदशिंगी, कोल्हापुर में स्थित। जरूरत के अनुसार कोल्हापुर, सांगली, सतारा, कोंकण और आसपास के महाराष्ट्र में सेवा।', hours: 'कार्य समय: सुबह 9:30 बजे – रात 8:00 बजे', getDirections: 'दिशा प्राप्त करें',
+    faqKicker: 'सामान्य प्रश्न', faqHeading: 'पूछताछ से पहले।', faqs: [['क्या आप मेरी बोरवेल के लिए सही पंप सुझा सकते हैं?', 'हाँ। बोरवेल की गहराई, पानी की जरूरत और उपयोग—खेत, घर या व्यवसाय—व्हाट्सऐप पर भेजें। हम सही विकल्प सुझाएंगे।'], ['क्या आप वेबसाइट पर उत्पाद की कीमतें दिखाते हैं?', 'नहीं। उपलब्धता, एचपी, केबल आकार, पाइप प्रकार और फिटिंग जरूरत के अनुसार बदलते हैं। वर्तमान कोटेशन के लिए व्हाट्सऐप पर पूछें।'], ['क्या आप ड्रिलिंग और सामग्री दोनों देते हैं?', 'हाँ। पूरे वॉटर सेटअप के लिए ड्रिलिंग, पंप चयन और आवश्यक सामग्री पर चर्चा कर सकते हैं।']],
+    contactKicker: 'अपनी जरूरत पर बात करें', contactHeading: 'पंप, बोरवेल सेवा या साइट विजिट चाहिए?', contactBody: 'अपनी लोकेशन और जरूरत के साथ हमारी स्थानीय टीम को कॉल या व्हाट्सऐप करें। हम अगला सही कदम बताएंगे।', alsoCall: 'अतिरिक्त कॉल नंबर',
+  },
+};
 
-function Brand() {
-  return <a className="brand" href="#top" aria-label="Pawar Borewell's and Trader's home"><span className="logo-mark" aria-hidden="true"><b>PB</b><i /></span><span><b>Pawar Borewell&apos;s</b><small>&amp; Trader&apos;s · Kolhapur</small></span></a>;
-}
+function Arrow() { return <span aria-hidden="true">↗</span>; }
+function Brand() { return <a className="brand" href="#top" aria-label="Pawar Borewell's and Trader's home"><span className="logo-mark" aria-hidden="true"><b>PB</b><i /></span><span><b>Pawar Borewell&apos;s</b><small>&amp; Trader&apos;s · Kolhapur</small></span></a>; }
 
 export default function Home() {
   const [language, setLanguage] = useState('en');
-  const text = languages[language];
+  const t = content[language];
+  const productEnquiry = (product) => wa(`Hello, I need a price and availability for ${product}.`);
   return <>
-    <header className="header">
-      <Brand />
-      <nav className="desktop-nav" aria-label="Main navigation"><a href="#services">Services</a><a href="#products">Products</a><a href="#why-us">Why us</a><a href="#location">Location</a></nav>
-      <div className="header-actions">
-        <select className="language-picker" value={language} onChange={(event) => setLanguage(event.target.value)} aria-label="Choose language">{Object.entries(languages).map(([code, item]) => <option value={code} key={code}>{item.label}</option>)}</select>
-        <a className="directions-link" href={directions} target="_blank" rel="noopener">Directions ↗</a>
-        <a className="top-whatsapp" href={whatsapp} target="_blank" rel="noopener">◔ {text.wa}</a>
-        <a className="top-call" href={`tel:+91${phone}`}>☎ {text.call}</a>
-      </div>
-    </header>
-
+    <header className="header"><Brand /><nav className="desktop-nav" aria-label="Main navigation"><a href="#services">{t.nav[0]}</a><a href="#products">{t.nav[1]}</a><a href="#why-us">{t.nav[2]}</a><a href="#location">{t.nav[3]}</a></nav><div className="header-actions"><select className="language-picker" value={language} onChange={(event) => setLanguage(event.target.value)} aria-label="Choose language">{Object.entries(content).map(([code, item]) => <option value={code} key={code}>{item.name}</option>)}</select><a className="directions-link" href={directions} target="_blank" rel="noopener">{t.directions} ↗</a><a className="top-whatsapp" href={wa('Hello, I want to enquire about borewell service in Kolhapur.')} target="_blank" rel="noopener">◔ {t.whatsapp}</a><a className="top-call" href={`tel:+91${primaryPhone}`}>☎ {t.call}</a></div></header>
     <main id="top">
-      <section className="hero">
-        <Image className="hero-image" src="/assets/drilling-site.jpeg" fill priority sizes="(max-width: 700px) 65vw, 45vw" alt="Pawar Borewell drilling rig at a Kolhapur site" />
-        <div className="hero-shade" />
-        <div className="shell hero-content">
-          <p className="kicker light">25 years of borewell solutions · Kolhapur</p>
-          <h1>{text.pre} <em>{text.accent}</em></h1>
-          <p className="lead">Borewell drilling, pumps, pipe, cable and essential parts—chosen for homes, farms, commercial sites and industries.</p>
-          <div className="actions"><a className="button white" href={`tel:+91${phone}`}>{text.call} <Arrow /></a><a className="button hero-whatsapp" href={whatsapp} target="_blank" rel="noopener">◔ {text.wa}</a></div>
-          <div className="stats"><div><b>25 years</b><span>practical experience</span></div><div><b>Products + service</b><span>one local team</span></div><div><b>On enquiry</b><span>right-size guidance</span></div></div>
-        </div>
-      </section>
-
-      <section className="trust-strip"><div className="shell"><span>Agricultural</span><span>Residential</span><span>Commercial</span><span>Drilling · pumps · supplies</span></div></section>
-
-      <section className="shell intro"><p className="kicker">A complete water-system partner</p><div><h2>From underground water to a working <em>water line.</em></h2><p>Every borewell needs the right pump, cable, pipe and protection. We help you decide what fits the depth, requirement and site—not just what is on the shelf.</p></div></section>
-
-      <section className="services" id="services"><div className="shell"><div className="section-head"><div><p className="kicker">Services</p><h2>One team. Every step.</h2></div><p>Practical support for a new borewell, a repair need or the complete pump installation.</p></div><div className="cards"><article className="card featured"><small>01</small><i aria-hidden="true">⌄</i><h3>Borewell drilling</h3><p>Professional drilling for farms, homes, commercial buildings and industrial sites.</p><a href={whatsapp} target="_blank" rel="noopener">Discuss your site <Arrow /></a></article><article className="card"><small>02</small><i aria-hidden="true">◌</i><h3>Cleaning &amp; flushing</h3><p>Support for existing borewells when water flow, cleanliness or performance needs attention.</p><span className="card-tag">Site-based guidance</span></article><article className="card"><small>03</small><i aria-hidden="true">⌁</i><h3>Pump installation</h3><p>Product selection, installation accessories and practical assistance for water-system setup.</p><span className="card-tag">Pumps &amp; materials</span></article></div></div></section>
-
-      <section className="catalogue" id="products"><div className="shell"><div className="catalogue-head"><div><p className="kicker">Product catalogue</p><h2>Products for the<br /><em>complete setup.</em></h2></div><p>Ask for availability and a quotation on WhatsApp. We do not publish fixed prices because the right size and configuration depend on your requirement.</p></div><div className="product-grid">{products.map((product) => <article className="catalogue-card" key={product.title}><div className="catalogue-image"><Image src={product.image} fill sizes="(max-width: 700px) 100vw, (max-width: 1000px) 50vw, 33vw" alt={product.alt} /></div><div className="catalogue-copy"><span className="availability">Available on enquiry</span><h3>{product.title}</h3><p>{product.detail}</p><a href={productLink(product.title)} target="_blank" rel="noopener">Get price on WhatsApp <Arrow /></a></div></article>)}</div></div></section>
-
-      <section className="showcase" id="why-us"><div className="shell showcase-grid"><div><p className="kicker">Why Pawar Borewell&apos;s</p><h2>Local knowledge.<br /><em>Practical recommendations.</em></h2><p>We work across Kolhapur and nearby Maharashtra with a focus on dependable equipment, transparent guidance and the needs of the actual site.</p><div className="reason-list"><span>✓ Pumps from SSP, Swaraj &amp; Laxmi</span><span>✓ Pump guard &amp; controller options</span><span>✓ Motor and pump replacement support—terms apply</span></div></div><figure><Image src="/assets/products/pump-range.jpeg" fill sizes="(max-width: 700px) 100vw, 58vw" alt="Range of borewell pump products and packaging" /><figcaption>Product guidance before you buy.</figcaption></figure></div></section>
-
-      <section className="shell coverage" id="location"><div><p className="kicker">Service area</p><h2>Kolhapur first.<br /><em>Maharashtra beyond.</em></h2><p className="location-copy">Based in Mudshingi, Kolhapur. We serve Kolhapur, Sangli, Satara, Konkan and surrounding Maharashtra areas depending on the requirement.</p><p className="hours">Working hours: 9:30 AM – 8:00 PM</p><a className="location-button" href={directions} target="_blank" rel="noopener">Get directions <Arrow /></a></div><a className="map" href={directions} target="_blank" rel="noopener" aria-label="Get directions to Pawar Borewell's and Trader's"><b>● &nbsp;Mudshingi, Kolhapur</b><span>Pawar Borewell&apos;s &amp; Trader&apos;s</span><small>Open in Google Maps ↗</small></a></section>
-
-      <section className="shell faq"><p className="kicker">Common questions</p><h2>Before you enquire.</h2><details open><summary>Can you recommend the right pump for my borewell?</summary><p>Yes. Share your borewell depth, water requirement and the use—farm, home or commercial—on WhatsApp. We will guide you to a suitable option.</p></details><details><summary>Do you show product prices on the website?</summary><p>No. Product availability, horsepower, cable size, pipe type and fittings differ by requirement. Use “Get price on WhatsApp” for a current quotation.</p></details><details><summary>Do you provide drilling and materials together?</summary><p>Yes. We can discuss drilling, pump selection and the materials needed for a complete water setup.</p></details></section>
-
-      <section className="shell callout"><div><p className="kicker">Let&apos;s discuss your requirement</p><h2>Need a pump, borewell service or a site visit?</h2><p>Call or WhatsApp our local team with your location and requirement. We&apos;ll help with the next practical step.</p></div><div><a className="button dark" href={`tel:+91${phone}`}>Call {phone.slice(0, 5)} {phone.slice(5)} <Arrow /></a><a className="button outline" href={whatsapp} target="_blank" rel="noopener">WhatsApp us <Arrow /></a><small>Mudshingi, Kolhapur · 9:30 AM–8:00 PM</small></div></section>
+      <section className="hero"><Image className="hero-image" src="/assets/drilling-site.jpeg" fill priority sizes="(max-width: 700px) 65vw, 45vw" alt="Pawar Borewell drilling rig at a Kolhapur site" /><div className="hero-shade" /><div className="shell hero-content"><p className="kicker light">{t.heroKicker}</p><h1>{t.heroBefore} <em>{t.heroAccent}</em></h1><p className="lead">{t.heroLead}</p><div className="actions"><a className="button white" href={`tel:+91${primaryPhone}`}>{t.call} <Arrow /></a><a className="button hero-whatsapp" href={wa('Hello, I want to enquire about borewell service in Kolhapur.')} target="_blank" rel="noopener">◔ {t.whatsapp}</a></div><div className="stats">{t.stats.map(([title, detail]) => <div key={title}><b>{title}</b><span>{detail}</span></div>)}</div></div></section>
+      <section className="trust-strip"><div className="shell">{t.audiences.map((audience) => <span key={audience}>{audience}</span>)}</div></section>
+      <section className="shell intro"><p className="kicker">{t.introKicker}</p><div><h2>{t.introHeading}</h2><p>{t.introBody}</p></div></section>
+      <section className="services" id="services"><div className="shell"><div className="section-head"><div><p className="kicker">{t.servicesKicker}</p><h2>{t.servicesHeading}</h2></div><p>{t.servicesBody}</p></div><div className="cards">{t.services.map(([title, body, action], index) => <article className={`card ${index === 0 ? 'featured' : ''}`} key={title}><small>0{index + 1}</small><i aria-hidden="true">{index === 0 ? '⌄' : index === 1 ? '◌' : '⌁'}</i><h3>{title}</h3><p>{body}</p>{index === 0 ? <a href={wa('Hello, I want to discuss a borewell site.')} target="_blank" rel="noopener">{action} <Arrow /></a> : <span className="card-tag">{action}</span>}</article>)}</div></div></section>
+      <section className="catalogue" id="products"><div className="shell"><div className="catalogue-head"><div><p className="kicker">{t.catalogueKicker}</p><h2>{t.catalogueHeading}</h2></div><p>{t.catalogueBody}</p></div><div className="product-grid">{t.products.map(([title, detail], index) => <article className="catalogue-card" key={title}><div className="catalogue-image"><Image src={productPhotos[index]} fill sizes="(max-width: 700px) 100vw, (max-width: 1000px) 50vw, 33vw" alt={title} /></div><div className="catalogue-copy"><span className="availability">{t.availability}</span><h3>{title}</h3><p>{detail}</p><a href={productEnquiry(title)} target="_blank" rel="noopener">{t.price} <Arrow /></a></div></article>)}</div></div></section>
+      <section className="showcase" id="why-us"><div className="shell showcase-grid"><div><p className="kicker">{t.whyKicker}</p><h2>{t.whyHeading}</h2><p>{t.whyBody}</p><div className="reason-list">{t.reasons.map((reason) => <span key={reason}>✓ {reason}</span>)}</div></div><figure><Image src="/assets/products/pump-range.jpeg" fill sizes="(max-width: 700px) 100vw, 58vw" alt="Range of borewell pump products" /><figcaption>{t.guide}</figcaption></figure></div></section>
+      <section className="shell coverage" id="location"><div><p className="kicker">{t.areaKicker}</p><h2>{t.areaHeading}</h2><p className="location-copy">{t.areaBody}</p><p className="hours">{t.hours}</p><a className="location-button" href={directions} target="_blank" rel="noopener">{t.getDirections} <Arrow /></a></div><a className="map" href={directions} target="_blank" rel="noopener" aria-label="Get directions to Pawar Borewell's and Trader's"><b>● &nbsp;Mudshingi, Kolhapur</b><span>Pawar Borewell&apos;s &amp; Trader&apos;s</span><small>Open in Google Maps ↗</small></a></section>
+      <section className="shell faq"><p className="kicker">{t.faqKicker}</p><h2>{t.faqHeading}</h2>{t.faqs.map(([question, answer], index) => <details open={index === 0} key={question}><summary>{question}</summary><p>{answer}</p></details>)}</section>
+      <section className="shell callout"><div><p className="kicker">{t.contactKicker}</p><h2>{t.contactHeading}</h2><p>{t.contactBody}</p></div><div><a className="button dark" href={`tel:+91${primaryPhone}`}>{t.call}: {primaryPhone.slice(0, 5)} {primaryPhone.slice(5)} <Arrow /></a><a className="button outline" href={wa('Hello, I want to enquire about Pawar Borewell services.')} target="_blank" rel="noopener">{t.whatsapp} <Arrow /></a><small>{t.alsoCall}: <a className="secondary-number" href={`tel:+91${secondaryPhone}`}>{secondaryPhone}</a><br />Mudshingi, Kolhapur · 9:30 AM–8:00 PM</small></div></section>
     </main>
-
-    <footer><div className="shell footer"><Brand /><p><a href={directions} target="_blank" rel="noopener">Mudshingi, Kolhapur ↗</a><br />© {new Date().getFullYear()} Pawar Borewell&apos;s &amp; Trader&apos;s</p><a href={`tel:+91${phone}`}>{phone}</a></div></footer>
-    <nav className="mobile-nav" aria-label="Quick contact"><a href={`tel:+91${phone}`}>☎ &nbsp; {text.call}</a><a href={whatsapp} target="_blank" rel="noopener">◔ &nbsp; {text.wa}</a></nav>
+    <footer><div className="shell footer"><Brand /><p><a href={directions} target="_blank" rel="noopener">Mudshingi, Kolhapur ↗</a><br />© {new Date().getFullYear()} Pawar Borewell&apos;s &amp; Trader&apos;s</p><p><a href={`tel:+91${primaryPhone}`}>{primaryPhone}</a><br /><a href={`tel:+91${secondaryPhone}`}>{secondaryPhone}</a></p></div></footer>
+    <nav className="mobile-nav" aria-label="Quick contact"><a href={`tel:+91${primaryPhone}`}>☎ &nbsp; {t.call}</a><a href={wa('Hello, I want to enquire about Pawar Borewell services.')} target="_blank" rel="noopener">◔ &nbsp; {t.whatsapp}</a></nav>
   </>;
 }
