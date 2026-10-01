@@ -75,7 +75,7 @@ const content = {
 };
 
 function Arrow() { return <span aria-hidden="true">↗</span>; }
-function Brand() { return <a className="brand" href="#top" aria-label="Pawar Borewell's and Trader's home"><span className="logo-mark" aria-hidden="true"><b>PB</b><i /></span><span><b>Pawar Borewell&apos;s</b><small>&amp; Trader&apos;s · Kolhapur</small></span></a>; }
+function Brand() { return <a className="brand" href="#top" aria-label="Pawar Borewell's and Trader's home"><Image className="brand-logo" src="/assets/pawar-borewell-logo.svg" width={46} height={46} alt="" priority /><span><b>Pawar Borewell&apos;s</b><small>&amp; Trader&apos;s · Kolhapur</small></span></a>; }
 
 export default function Home() {
   const [language, setLanguage] = useState('en');

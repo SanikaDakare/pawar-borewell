@@ -1,0 +1,13 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Pawar Borewell's and Trader's logo</title>
+  <desc id="desc">A deep blue water droplet with PB initials, borewell rings and an orange accent.</desc>
+  <rect width="512" height="512" rx="116" fill="#123448"/>
+  <path d="M256 71C219 128 147 209 147 294C147 362 195 411 256 411C317 411 365 362 365 294C365 209 293 128 256 71Z" fill="#F7F5EF"/>
+  <path d="M256 112C226 162 179 224 179 291C179 339 212 373 256 373C300 373 333 339 333 291C333 224 286 162 256 112Z" fill="#3D9FA1"/>
+  <path d="M194 287C194 253 215 209 256 148C297 209 318 253 318 287" stroke="#123448" stroke-width="15" stroke-linecap="round"/>
+  <path d="M206 335C235 354 277 354 306 335" stroke="#F7F5EF" stroke-width="10" stroke-linecap="round"/>
+  <path d="M217 309C241 323 271 323 295 309" stroke="#F7F5EF" stroke-width="10" stroke-linecap="round"/>
+  <text x="256" y="292" text-anchor="middle" fill="#123448" font-family="Arial, Helvetica, sans-serif" font-size="83" font-weight="800" letter-spacing="-8">PB</text>
+  <circle cx="382" cy="122" r="37" fill="#EB7542"/>
+  <path d="M382 98V146M358 122H406" stroke="#F7F5EF" stroke-width="12" stroke-linecap="round"/>
+</svg>
