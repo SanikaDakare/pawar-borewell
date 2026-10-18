@@ -8,10 +8,14 @@ const secondaryPhone = '7823007802';
 const directions = 'https://maps.app.goo.gl/Q7eD3jaKAxFDEyPf8?g_st=aw';
 const wa = (message) => `https://wa.me/91${primaryPhone}?text=${encodeURIComponent(message)}`;
 const productPhotos = [
-  '/assets/products/submersible-pump.jpeg', '/assets/products/openwell-pump.jpeg',
-  '/assets/products/pump-guard.jpeg', '/assets/products/submersible-cable.jpeg',
-  '/assets/products/hdpe-pipe.jpeg', '/assets/products/fittings.jpeg',
-  '/assets/products/nylon-rope.jpeg', '/assets/products/sensor-cable.jpeg',
+  ['/assets/products/submersible-pump.jpeg'],
+  ['/assets/products/openwell-pump.jpeg'],
+  ['/assets/products/pump-guard-panel.jpeg', '/assets/products/pump-guard.jpeg'],
+  ['/assets/products/submersible-cable.jpeg', '/assets/products/sensor-cable.jpeg'],
+  ['/assets/products/hdpe-pipe.jpeg'],
+  ['/assets/products/fittings.jpeg'],
+  ['/assets/products/nylon-rope.jpeg'],
+  ['/assets/products/sensor-cable.jpeg', '/assets/products/submersible-cable.jpeg'],
 ];
 
 const content = {
@@ -25,8 +29,8 @@ const content = {
     introBody: 'Every borewell needs the right pump, cable, pipe and protection. We help you decide what fits the depth, requirement and site—not just what is on the shelf.',
     servicesKicker: 'Services', servicesHeading: 'One team. Every step.', servicesBody: 'Practical support for a new borewell, a repair need or the complete pump installation.',
     services: [['Borewell drilling', 'Professional 4 in, 6.5 in and 7.5 in borewell drilling for farms, homes, commercial buildings and industrial sites.', 'Discuss your site'], ['Cleaning & flushing', 'Support for existing borewells when water flow, cleanliness or performance needs attention.', 'Site-based guidance'], ['SSP pump installation & supply', 'Authorised SSP pump distributor for installation, product selection, accessories and practical support for a complete water-system setup.', 'Pumps & materials']],
-    catalogueKicker: 'Product catalogue', catalogueHeading: <>Products for the<br /><em>complete setup.</em></>, catalogueBody: 'Ask for availability and a quotation on WhatsApp. We do not publish fixed prices because the right size and configuration depend on your requirement.',
-    products: [['SSP submersible pump set', 'For 100 mm borewells. SSP, Swaraj and Laxmi pump options are available in 0.5, 0.75, 1, 1.5, 2 and 3 HP; larger requirements can be discussed.'], ['SSP openwell pump', 'For open wells, residential systems and apartment water tanks. Select the horsepower and outlet size to suit the required water discharge.'], ['Unique pump guard & panels', 'Pump protection with dry-run and overload indications. Ask for analog panels, digital panels and water-sensor panel options after confirming motor load.'], ['Submersible flat cable', 'Blue flat submersible cable available in 2.5 sq. mm and 4 sq. mm sizes for pump installations.'], ['Jain HDPE delivery pipe', 'HDPE pipe for borewell delivery lines and water distribution. Sizes from 20 mm to 160 mm (1/2 in to 6 in OD) are selected for pump size and discharge needs.'], ['Borewell fittings & installation accessories', 'Column-pipe nipples, hose adapters, clamps and installation accessories for completing a pump connection.'], ['Nylon safety rope', 'Yellow Tuf-style braided safety rope for suspending submersible pump sets. Ask for 12 mm, 14 mm and other sizes.'], ['Sensor cable', 'Sensor cable options for water-level and control-panel requirements, including 0.5 sq. mm, 0.75 sq. mm and 1 sq. mm sizes.']],
+    catalogueKicker: 'Product Catalogue', catalogueHeading: <>Products For The<br /><em>Complete Setup.</em></>, catalogueBody: 'Ask For Availability And A Quotation On WhatsApp. We Do Not Publish Fixed Prices Because The Right Size And Configuration Depend On Your Requirement.',
+    products: [['SSP Submersible Pump Set', 'For 100 Mm Borewells. SSP, Swaraj And Laxmi Pump Options Are Available In 0.5, 0.75, 1, 1.5, 2 And 3 HP; 5 HP And Larger Requirements Can Be Discussed.'], ['SSP Openwell Pump', 'For Open Wells, Residential Systems And Apartment Water Tanks. Select The Horsepower And Outlet Size To Suit The Required Water Discharge.'], ['Unique Pump Guard & Panels', 'Pump Protection With Dry-Run And Overload Indications. Ask For Analog Panels, Digital Panels And Water-Sensor Panel Options After Confirming Motor Load.'], ['Submersible Flat Cable', 'Blue Flat Submersible Cable Available In 2.5 Sq. Mm And 4 Sq. Mm Sizes For Pump Installations.'], ['Jain HDPE Delivery Pipe', 'HDPE Pipe For Borewell Delivery Lines And Water Distribution. Sizes From 20 Mm To 160 Mm (1/2 In To 6 In OD) Are Selected For Pump Size And Discharge Needs.'], ['Borewell Fittings & Installation Accessories', 'Column-Pipe Nipples, Hose Adapters, Clamps And Installation Accessories For Completing A Pump Connection.'], ['Nylon Safety Rope', 'Yellow Tuf-Style Braided Safety Rope For Suspending Submersible Pump Sets. Ask For 12 Mm, 14 Mm And Other Sizes.'], ['Sensor Cable', 'Sensor Cable Options For Water-Level And Control-Panel Requirements, Including 0.5 Sq. Mm, 0.75 Sq. Mm And 1 Sq. Mm Sizes.']],
     availability: 'Available on enquiry', price: 'Get price on WhatsApp', whyKicker: "Why Pawar Borewell's", whyHeading: <>Local knowledge.<br /><em>Practical recommendations.</em></>,
     whyBody: 'We work across Kolhapur and nearby Maharashtra with a focus on dependable equipment, transparent guidance and the needs of the actual site.',
     reasons: ['Local knowledge and practical guidance', 'Pumps from SSP, Swaraj & Laxmi', 'Pump guard, panel and controller options'], guide: 'Product guidance before you buy.',
@@ -76,6 +80,14 @@ const content = {
 
 function Arrow() { return <span aria-hidden="true">↗</span>; }
 function Brand() { return <a className="brand" href="#top" aria-label="Pawar Borewell's and Trader's home"><Image className="brand-logo brand-logo-official" src="/assets/pawar-borewell-official-emblem.jpeg" width={46} height={46} alt="Pawar Borewells and Traders logo" priority /><span><b>Pawar Borewell&apos;s</b><small>&amp; Trader&apos;s · Kolhapur</small></span></a>; }
+function ProductImage({ photos, alt }) {
+  const [activeImage, setActiveImage] = useState(0);
+  const hasMultipleImages = photos.length > 1;
+  const previous = () => setActiveImage((index) => (index - 1 + photos.length) % photos.length);
+  const next = () => setActiveImage((index) => (index + 1) % photos.length);
+
+  return <div className="catalogue-image"><Image src={photos[activeImage]} fill sizes="(max-width: 700px) 100vw, (max-width: 1000px) 50vw, 33vw" alt={alt} />{hasMultipleImages && <div className="image-controls"><button type="button" onClick={previous} aria-label={`Previous ${alt} image`}>←</button><span aria-live="polite">{activeImage + 1}/{photos.length}</span><button type="button" onClick={next} aria-label={`Next ${alt} image`}>→</button></div>}</div>;
+}
 
 export default function Home() {
   const [language, setLanguage] = useState('en');
@@ -88,7 +100,7 @@ export default function Home() {
       <section className="trust-strip"><div className="shell">{t.audiences.map((audience) => <span key={audience}>{audience}</span>)}</div></section>
       <section className="shell intro"><p className="kicker">{t.introKicker}</p><div><h2>{t.introHeading}</h2><p>{t.introBody}</p></div></section>
       <section className="services" id="services"><div className="shell"><div className="section-head"><div><p className="kicker">{t.servicesKicker}</p><h2>{t.servicesHeading}</h2></div><p>{t.servicesBody}</p></div><div className="cards">{t.services.map(([title, body, action], index) => <article className={`card ${index === 0 ? 'featured' : ''}`} key={title}><small>0{index + 1}</small><i aria-hidden="true">{index === 0 ? '⌄' : index === 1 ? '◌' : '⌁'}</i><h3>{title}</h3><p>{body}</p>{index === 0 ? <a href={wa('Hello, I want to discuss a borewell site.')} target="_blank" rel="noopener">{action} <Arrow /></a> : <span className="card-tag">{action}</span>}</article>)}</div></div></section>
-      <section className="catalogue" id="products"><div className="shell"><div className="catalogue-head"><div><p className="kicker">{t.catalogueKicker}</p><h2>{t.catalogueHeading}</h2></div><p>{t.catalogueBody}</p></div><div className="product-grid">{t.products.map(([title, detail], index) => <article className="catalogue-card" key={title}><div className="catalogue-image"><Image src={productPhotos[index]} fill sizes="(max-width: 700px) 100vw, (max-width: 1000px) 50vw, 33vw" alt={title} /></div><div className="catalogue-copy"><span className="availability">{t.availability}</span><h3>{title}</h3><p>{detail}</p><a href={productEnquiry(title)} target="_blank" rel="noopener">{t.price} <Arrow /></a></div></article>)}</div></div></section>
+      <section className="catalogue" id="products"><div className="shell"><div className="catalogue-head"><div><p className="kicker">{t.catalogueKicker}</p><h2>{t.catalogueHeading}</h2></div><p>{t.catalogueBody}</p></div><div className="product-grid">{t.products.map(([title, detail], index) => <article className="catalogue-card" key={title}><ProductImage photos={productPhotos[index]} alt={title} /><div className="catalogue-copy"><span className="availability">{t.availability}</span><h3>{title}</h3><p>{detail}</p><a href={productEnquiry(title)} target="_blank" rel="noopener">{t.price} <Arrow /></a></div></article>)}</div></div></section>
       <section className="showcase" id="why-us"><div className="shell showcase-grid"><div><p className="kicker">{t.whyKicker}</p><h2>{t.whyHeading}</h2><p>{t.whyBody}</p><div className="reason-list">{t.reasons.map((reason) => <span key={reason}>✓ {reason}</span>)}</div></div><figure><Image src="/assets/products/pump-range.jpeg" fill sizes="(max-width: 700px) 100vw, 58vw" alt="Pawar Borewell product selection" /><figcaption>{t.guide}</figcaption></figure></div></section>
       <section className="shell coverage" id="location"><div><p className="kicker">{t.areaKicker}</p><h2>{t.areaHeading}</h2><p className="location-copy">{t.areaBody}</p><p className="hours">{t.hours}</p><a className="location-button" href={directions} target="_blank" rel="noopener">{t.getDirections} <Arrow /></a></div><a className="map" href={directions} target="_blank" rel="noopener" aria-label="Get directions to Pawar Borewell's and Trader's"><b>● &nbsp;Gad-Mudshingi, Kolhapur</b><span>Pawar Borewell&apos;s &amp; Trader&apos;s</span><small>Open in Google Maps ↗</small></a></section>
       <section className="shell faq"><p className="kicker">{t.faqKicker}</p><h2>{t.faqHeading}</h2>{t.faqs.map(([question, answer], index) => <details open={index === 0} key={question}><summary>{question}</summary><p>{answer}</p></details>)}</section>
