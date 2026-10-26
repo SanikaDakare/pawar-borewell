@@ -89,6 +89,52 @@ function ProductImage({ photos, alt }) {
   return <div className="catalogue-image"><Image src={photos[activeImage]} fill sizes="(max-width: 700px) 100vw, (max-width: 1000px) 50vw, 33vw" alt={alt} />{hasMultipleImages && <div className="image-controls"><button type="button" onClick={previous} aria-label={`Previous ${alt} image`}>←</button><span aria-live="polite">{activeImage + 1}/{photos.length}</span><button type="button" onClick={next} aria-label={`Next ${alt} image`}>→</button></div>}</div>;
 }
 
+function EnquiryForm() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formError, setFormError] = useState('');
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const form = new FormData(event.currentTarget);
+    const mobile = String(form.get('mobile') || '').replace(/\D/g, '');
+
+    if (mobile.length !== 10) {
+      setFormError('Please Enter A Valid 10-Digit Mobile Number / कृपया वैध १० अंकी मोबाईल नंबर टाका.');
+      return;
+    }
+
+    setFormError('');
+    setIsSubmitting(true);
+    const message = [
+      'New Website Enquiry',
+      `Name: ${form.get('name')}`,
+      `Mobile: ${mobile}`,
+      `Village/City: ${form.get('location')}`,
+      `Service Needed: ${form.get('service')}`,
+      `Message: ${form.get('message') || 'Not Provided'}`,
+    ].join('\n');
+
+    window.setTimeout(() => {
+      window.location.href = wa(message);
+      setIsSubmitting(false);
+    }, 350);
+  };
+
+  return <form className="enquiry-form" onSubmit={handleSubmit}>
+    <div className="form-heading"><span>चौकशी फॉर्म</span><b>Enquiry Form</b><p>Share Your Requirement And Our Team Will Contact You.</p></div>
+    <div className="form-grid">
+      <label>Full Name <span>/ पूर्ण नाव</span><input name="name" type="text" autoComplete="name" required placeholder="Your Full Name" /></label>
+      <label>Mobile Number <span>/ मोबाईल नंबर</span><input name="mobile" type="tel" inputMode="numeric" autoComplete="tel" required pattern="[0-9]{10}" maxLength="10" placeholder="10-Digit Mobile Number" /></label>
+    </div>
+    <label>Village/City <span>/ गाव किंवा शहर</span><input name="location" type="text" autoComplete="address-level2" required placeholder="Your Village Or City" /></label>
+    <label>Service Needed <span>/ कोणती सेवा हवी आहे?</span><select name="service" required defaultValue=""><option value="" disabled>-- Select Service / पर्याय निवडा --</option><option>Borewell Drilling / नवीन बोअरवेल पाडणे</option><option>SSP Pump & Motor Installation / पंप आणि मोटर बसवणे</option><option>Borewell Cleaning & Flushing / बोअरवेल साफ करणे</option><option>Pipes, Cables & Accessories / इतर साहित्य खरेदी</option></select></label>
+    <label>Message <span>/ विशेष संदेश</span><textarea name="message" rows="3" placeholder="e.g., How much for a 500ft borewell? / ५०० फूट बोअरवेलचा खर्च किती येईल?" /></label>
+    {formError && <p className="form-error" role="alert">{formError}</p>}
+    <button className="enquiry-submit" type="submit" disabled={isSubmitting}>{isSubmitting ? 'Sending Enquiry… / माहिती पाठवत आहे…' : 'Send Enquiry / माहिती पाठवा'} <span aria-hidden="true">↗</span></button>
+    <small className="form-note">Your Enquiry Will Open In WhatsApp For Sending.</small>
+  </form>;
+}
+
 export default function Home() {
   const [language, setLanguage] = useState('en');
   const t = content[language];
@@ -104,7 +150,7 @@ export default function Home() {
       <section className="showcase" id="why-us"><div className="shell showcase-grid"><div><p className="kicker">{t.whyKicker}</p><h2>{t.whyHeading}</h2><p>{t.whyBody}</p><div className="reason-list">{t.reasons.map((reason) => <span key={reason}>✓ {reason}</span>)}</div></div><figure><Image src="/assets/products/pump-range.jpeg" fill sizes="(max-width: 700px) 100vw, 58vw" alt="Pawar Borewell product selection" /><figcaption>{t.guide}</figcaption></figure></div></section>
       <section className="shell coverage" id="location"><div><p className="kicker">{t.areaKicker}</p><h2>{t.areaHeading}</h2><p className="location-copy">{t.areaBody}</p><p className="hours">{t.hours}</p><a className="location-button" href={directions} target="_blank" rel="noopener">{t.getDirections} <Arrow /></a></div><a className="map" href={directions} target="_blank" rel="noopener" aria-label="Get directions to Pawar Borewell's and Trader's"><b>● &nbsp;Gad-Mudshingi, Kolhapur</b><span>Pawar Borewell&apos;s &amp; Trader&apos;s</span><small>Open in Google Maps ↗</small></a></section>
       <section className="shell faq"><p className="kicker">{t.faqKicker}</p><h2>{t.faqHeading}</h2>{t.faqs.map(([question, answer], index) => <details open={index === 0} key={question}><summary>{question}</summary><p>{answer}</p></details>)}</section>
-      <section className="shell callout"><div><p className="kicker">{t.contactKicker}</p><h2>{t.contactHeading}</h2><p>{t.contactBody}</p></div><div><a className="button dark" href={`tel:+91${primaryPhone}`}>{t.call}: {primaryPhone.slice(0, 5)} {primaryPhone.slice(5)} <Arrow /></a><a className="button outline" href={wa('Hello, I want to enquire about Pawar Borewell services.')} target="_blank" rel="noopener">{t.whatsapp} <Arrow /></a><small>{t.alsoCall}: <a className="secondary-number" href={`tel:+91${secondaryPhone}`}>{secondaryPhone}</a><br />Mudshingi, Kolhapur · 9:30 AM–8:00 PM</small></div></section>
+      <section className="shell callout"><div className="callout-copy"><p className="kicker">{t.contactKicker}</p><h2>{t.contactHeading}</h2><p>{t.contactBody}</p><div className="callout-actions"><a className="button dark" href={`tel:+91${primaryPhone}`}>{t.call}: {primaryPhone.slice(0, 5)} {primaryPhone.slice(5)} <Arrow /></a><a className="button outline" href={wa('Hello, I want to enquire about Pawar Borewell services.')} target="_blank" rel="noopener">{t.whatsapp} <Arrow /></a><small>{t.alsoCall}: <a className="secondary-number" href={`tel:+91${secondaryPhone}`}>{secondaryPhone}</a><br />Mudshingi, Kolhapur · 9:30 AM–8:00 PM</small></div></div><EnquiryForm /></section>
     </main>
     <footer><div className="shell footer"><Brand /><p><a href={directions} target="_blank" rel="noopener">Mudshingi, Kolhapur ↗</a><br />© {new Date().getFullYear()} Pawar Borewell&apos;s &amp; Trader&apos;s</p><p><a href={`tel:+91${primaryPhone}`}>{primaryPhone}</a><br /><a href={`tel:+91${secondaryPhone}`}>{secondaryPhone}</a></p></div></footer>
     <nav className="mobile-nav" aria-label="Quick contact"><a href={`tel:+91${primaryPhone}`}>☎ &nbsp; {t.call}</a><a href={wa('Hello, I want to enquire about Pawar Borewell services.')} target="_blank" rel="noopener">◔ &nbsp; {t.whatsapp}</a></nav>
