@@ -31,3 +31,16 @@ html{scroll-padding-top:90px}body{letter-spacing:.005em}.header{position:sticky;
 .image-controls button{font-size:11px;padding:5px 7px}
 @media(max-width:900px){.enquiry-form{justify-self:stretch;max-width:none}}
 @media(max-width:700px){.callout{border-radius:10px}.enquiry-form{border-radius:10px}.callout-copy h2{font-size:36px}.enquiry-form label{font-size:14px}}
+
+/* Final enquiry-section layout and accessibility refinement */
+.callout{position:relative;overflow:hidden;scroll-margin-top:96px}
+.callout:before{content:"";position:absolute;width:340px;height:340px;border:1px solid rgba(255,255,255,.15);border-radius:50%;left:-175px;bottom:-215px;pointer-events:none}
+.callout-copy,.enquiry-form{position:relative;z-index:1}
+.callout-copy{align-self:center}
+.form-heading h3{margin:0;font:700 25px/1.1 Georgia,serif;letter-spacing:-.35px}
+.enquiry-form .form-heading b{display:none}
+.enquiry-form input:invalid:not(:placeholder-shown){border-color:#c9523a}
+.enquiry-form select:invalid{color:#6f7d82}
+.enquiry-form option{color:var(--ink)}
+@media(max-width:900px){.enquiry-form{order:-1}.callout-copy{width:100%}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.button,.catalogue-card,.map,.enquiry-submit{transition:none}}

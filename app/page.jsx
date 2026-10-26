@@ -120,18 +120,18 @@ function EnquiryForm() {
     }, 350);
   };
 
-  return <form className="enquiry-form" onSubmit={handleSubmit}>
-    <div className="form-heading"><span>चौकशी फॉर्म</span><b>Enquiry Form</b><p>Share Your Requirement And Our Team Will Contact You.</p></div>
+  return <form className="enquiry-form" onSubmit={handleSubmit} aria-describedby="enquiry-help">
+    <div className="form-heading"><span>चौकशी फॉर्म</span><h3>Enquiry Form</h3><p>Share Your Requirement And Our Team Will Contact You.</p></div>
     <div className="form-grid">
       <label>Full Name <span>/ पूर्ण नाव</span><input name="name" type="text" autoComplete="name" required placeholder="Your Full Name" /></label>
-      <label>Mobile Number <span>/ मोबाईल नंबर</span><input name="mobile" type="tel" inputMode="numeric" autoComplete="tel" required pattern="[0-9]{10}" maxLength="10" placeholder="10-Digit Mobile Number" /></label>
+      <label>Mobile Number <span>/ मोबाईल नंबर</span><input name="mobile" type="tel" inputMode="numeric" autoComplete="tel" required pattern="[0-9]{10}" maxLength="10" onInput={(event) => { event.currentTarget.value = event.currentTarget.value.replace(/\D/g, '').slice(0, 10); }} placeholder="10-Digit Mobile Number" /></label>
     </div>
     <label>Village/City <span>/ गाव किंवा शहर</span><input name="location" type="text" autoComplete="address-level2" required placeholder="Your Village Or City" /></label>
     <label>Service Needed <span>/ कोणती सेवा हवी आहे?</span><select name="service" required defaultValue=""><option value="" disabled>-- Select Service / पर्याय निवडा --</option><option>Borewell Drilling / नवीन बोअरवेल पाडणे</option><option>SSP Pump & Motor Installation / पंप आणि मोटर बसवणे</option><option>Borewell Cleaning & Flushing / बोअरवेल साफ करणे</option><option>Pipes, Cables & Accessories / इतर साहित्य खरेदी</option></select></label>
     <label>Message <span>/ विशेष संदेश</span><textarea name="message" rows="3" placeholder="e.g., How much for a 500ft borewell? / ५०० फूट बोअरवेलचा खर्च किती येईल?" /></label>
     {formError && <p className="form-error" role="alert">{formError}</p>}
     <button className="enquiry-submit" type="submit" disabled={isSubmitting}>{isSubmitting ? 'Sending Enquiry… / माहिती पाठवत आहे…' : 'Send Enquiry / माहिती पाठवा'}</button>
-    <small className="form-note">Your Enquiry Will Open In WhatsApp For Sending.</small>
+    <small className="form-note" id="enquiry-help">Your Enquiry Will Open In WhatsApp For Sending.</small>
   </form>;
 }
 
