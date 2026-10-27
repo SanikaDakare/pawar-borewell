@@ -79,6 +79,7 @@ html{scroll-padding-top:90px}body{letter-spacing:.005em}.header{position:sticky;
 
 /* Faster, touch-first mobile browsing */
 @media(max-width:700px){
+  .trust-strip{scrollbar-width:none}.trust-strip::-webkit-scrollbar{display:none}
   .hero{min-height:570px}.hero-content{padding-top:52px;padding-bottom:38px}.hero h1{font-size:clamp(39px,12vw,50px)}.lead{margin:20px 0;font-size:15px}.stats{margin-top:30px}.stats div{padding:0 9px;min-width:0}.stats b{font-size:11px}.stats span{font-size:9px}
   .intro{padding:48px 0}.services{padding:50px 0}.section-head{margin-bottom:26px}.card{min-height:226px;padding:23px}.card.featured{min-height:245px}.card i{height:44px;font-size:44px}.card h3{font-size:23px}.card p{margin:8px 0;font-size:13px}.card a,.card-tag{bottom:20px}
   .catalogue{padding:50px 0}.catalogue-head{margin-bottom:22px}.catalogue-head>p{font-size:14px}.product-grid{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:0 0 12px}.product-grid::-webkit-scrollbar{display:none}.catalogue-card{flex:0 0 min(84vw,330px);scroll-snap-align:start;min-height:0}.catalogue-image{height:205px}.catalogue-copy{min-height:215px;padding:18px}.catalogue-copy h3{font-size:22px;margin:12px 0 8px}.catalogue-copy p{font-size:13px;line-height:1.45}.catalogue-copy a{padding-top:16px}
