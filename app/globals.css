@@ -99,3 +99,7 @@ html{scroll-padding-top:90px}body{letter-spacing:.005em}.header{position:sticky;
   .header-enquiry{display:none}.cards{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:0 0 12px}.cards::-webkit-scrollbar{display:none}.card,.card.featured{flex:0 0 min(84vw,330px);min-height:250px;scroll-snap-align:start}.card{padding:22px}.card i{width:36px;height:36px;margin-bottom:20px;font-size:11px}.card h3{font-size:22px}.card p{font-size:13px}.card a,.card-tag{bottom:20px}
   .showcase{padding:48px 0}.showcase-grid{gap:28px}.showcase figure{height:300px}.coverage{padding:48px 0}.faq{padding:50px 0}.contact-callout{margin-top:38px}
 }
+
+/* Keep every service option visually equal and make the map action unmistakable. */
+.card.featured{background:#f9f7f1;color:var(--ink)}.card.featured p{color:var(--muted)}.card.featured i{border-color:#d9a183;color:var(--orange)}
+.location-button{min-width:172px;justify-content:center;background:var(--orange);color:#fff!important;-webkit-text-fill-color:#fff;font-size:13px!important;font-weight:800;line-height:1;letter-spacing:.01em}.location-button:hover{background:#cc6032;color:#fff!important}
