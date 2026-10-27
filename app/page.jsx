@@ -82,11 +82,12 @@ function Arrow() { return null; }
 function Brand() { return <a className="brand" href="#top" aria-label="Pawar Borewell's and Trader's home"><Image className="brand-logo brand-logo-official" src="/assets/pawar-borewell-official-emblem.jpeg" width={46} height={46} alt="Pawar Borewells and Traders logo" priority /><span><b>Pawar Borewell&apos;s</b><small>&amp; Trader&apos;s · Kolhapur</small></span></a>; }
 function ProductImage({ photos, alt }) {
   const [activeImage, setActiveImage] = useState(0);
+  const activePhoto = photos[activeImage];
   const hasMultipleImages = photos.length > 1;
   const previous = () => setActiveImage((index) => (index - 1 + photos.length) % photos.length);
   const next = () => setActiveImage((index) => (index + 1) % photos.length);
 
-  return <div className="catalogue-image"><Image src={photos[activeImage]} fill sizes="(max-width: 700px) 100vw, (max-width: 1000px) 50vw, 33vw" alt={alt} />{hasMultipleImages && <div className="image-controls"><button type="button" onClick={previous} aria-label={`Previous ${alt} image`}>Prev</button><span aria-live="polite">{activeImage + 1}/{photos.length}</span><button type="button" onClick={next} aria-label={`Next ${alt} image`}>Next</button></div>}</div>;
+  return <div className="catalogue-image" style={{ '--catalogue-photo': `url("${activePhoto}")` }}><Image src={activePhoto} fill sizes="(max-width: 700px) 84vw, (max-width: 1050px) 33vw, 25vw" alt={alt} />{hasMultipleImages && <div className="image-controls"><button type="button" onClick={previous} aria-label={`Previous ${alt} image`}>Prev</button><span aria-live="polite">{activeImage + 1}/{photos.length}</span><button type="button" onClick={next} aria-label={`Next ${alt} image`}>Next</button></div>}</div>;
 }
 
 function EnquiryForm() {
