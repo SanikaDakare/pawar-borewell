@@ -44,3 +44,15 @@ html{scroll-padding-top:90px}body{letter-spacing:.005em}.header{position:sticky;
 .enquiry-form option{color:var(--ink)}
 @media(max-width:900px){.enquiry-form{order:-1}.callout-copy{width:100%}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.button,.catalogue-card,.map,.enquiry-submit{transition:none}}
+
+/* Dedicated enquiry section: the final decision point before the footer. */
+.enquiry-section{padding:18px 0 92px;background:linear-gradient(180deg,var(--cream) 0%,#f3eee4 100%)}
+.enquiry-section .callout{min-height:520px;margin:0 auto;grid-template-columns:minmax(0,.82fr) minmax(420px,1fr);gap:64px;padding:52px 58px}
+.enquiry-section .callout-copy{display:flex;flex-direction:column;justify-content:center;min-height:100%;padding:8px 6px}
+.enquiry-section .callout-copy>p:not(.kicker){max-width:475px;margin-bottom:0;font-size:16px;line-height:1.65}
+.enquiry-section .callout-actions{max-width:300px;margin-top:30px}
+.enquiry-section .enquiry-form{max-width:500px;padding:30px;justify-self:end}
+.enquiry-section .form-heading{padding-bottom:4px;border-bottom:1px solid #e7ece9}
+@media(max-width:1050px){.enquiry-section .callout{grid-template-columns:minmax(0,.84fr) minmax(385px,1fr);gap:38px;padding:46px}}
+@media(max-width:900px){.enquiry-section{padding:0 0 76px}.enquiry-section .callout{min-height:0;grid-template-columns:1fr;gap:38px;padding:32px}.enquiry-section .enquiry-form{justify-self:stretch;max-width:none}.enquiry-section .callout-copy{padding:4px}.enquiry-section .callout-actions{max-width:420px}}
+@media(max-width:700px){.enquiry-section{padding:0 16px 70px}.enquiry-section .callout{width:100%;padding:22px;gap:30px}.enquiry-section .enquiry-form{padding:22px}.enquiry-section .callout-copy{padding:4px 0}.enquiry-section .callout-copy h2{font-size:35px}.enquiry-section .callout-actions{width:100%;margin-top:24px}}
