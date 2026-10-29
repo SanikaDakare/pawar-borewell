@@ -85,7 +85,7 @@ function ProductImage({ photos, alt }) {
   const activePhoto = photos[activeImage];
   const hasMultipleImages = photos.length > 1;
 
-  return <div className="catalogue-image" style={{ '--catalogue-photo': `url("${activePhoto}")` }}><Image src={activePhoto} fill sizes="(max-width: 700px) 84vw, (max-width: 1050px) 33vw, 25vw" alt={alt} />{hasMultipleImages && <div className="image-pagination" aria-label={`${alt} image selector`}>{photos.map((photo, index) => <button type="button" className={index === activeImage ? 'is-active' : ''} onClick={() => setActiveImage(index)} aria-label={`Show ${alt} photo ${index + 1}`} aria-pressed={index === activeImage} key={photo}><span className="sr-only">{index + 1}</span></button>)}</div>}</div>;
+  return <div className="catalogue-image" style={{ '--catalogue-photo': `url("${activePhoto}")` }}><Image src={activePhoto} fill quality={88} sizes="(max-width: 700px) 84vw, (max-width: 1050px) 33vw, 25vw" alt={alt} />{hasMultipleImages && <div className="image-pagination" aria-label={`${alt} image selector`}>{photos.map((photo, index) => <button type="button" className={index === activeImage ? 'is-active' : ''} onClick={() => setActiveImage(index)} aria-label={`Show ${alt} photo ${index + 1}`} aria-pressed={index === activeImage} key={photo}><span className="sr-only">{index + 1}</span></button>)}</div>}</div>;
 }
 
 function EnquiryForm() {
