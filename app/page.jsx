@@ -1,7 +1,8 @@
 "use client";
 
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 const primaryPhone = '9421107110';
 const secondaryPhone = '7823007802';
@@ -82,10 +83,53 @@ function Arrow() { return null; }
 function Brand() { return <a className="brand" href="#top" aria-label="Pawar Borewell's and Trader's home"><Image className="brand-logo brand-logo-official" src="/assets/pawar-borewell-official-emblem.jpeg" width={46} height={46} alt="Pawar Borewells and Traders logo" priority /><span><b>Pawar Borewell&apos;s</b><small>&amp; Trader&apos;s · Kolhapur</small></span></a>; }
 function ProductImage({ photos, alt }) {
   const [activeImage, setActiveImage] = useState(0);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const closeButton = useRef(null);
+  const openButton = useRef(null);
+  const viewer = useRef(null);
   const activePhoto = photos[activeImage];
   const hasMultipleImages = photos.length > 1;
 
-  return <div className="catalogue-image" style={{ '--catalogue-photo': `url("${activePhoto}")` }}><Image src={activePhoto} fill quality={88} sizes="(max-width: 700px) 84vw, (max-width: 1050px) 33vw, 25vw" alt={alt} />{hasMultipleImages && <div className="image-pagination" aria-label={`${alt} image selector`}>{photos.map((photo, index) => <button type="button" className={index === activeImage ? 'is-active' : ''} onClick={() => setActiveImage(index)} aria-label={`Show ${alt} photo ${index + 1}`} aria-pressed={index === activeImage} key={photo}><span className="sr-only">{index + 1}</span></button>)}</div>}</div>;
+  useEffect(() => {
+    if (!isExpanded) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    closeButton.current?.focus();
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') setIsExpanded(false);
+      if (event.key === 'ArrowRight') setActiveImage((current) => (current + 1) % photos.length);
+      if (event.key === 'ArrowLeft') setActiveImage((current) => (current - 1 + photos.length) % photos.length);
+      if (event.key === 'Tab') {
+        const buttons = viewer.current?.querySelectorAll('button');
+        if (!buttons?.length) return;
+        const first = buttons[0];
+        const last = buttons[buttons.length - 1];
+        if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+        if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+      openButton.current?.focus();
+    };
+  }, [isExpanded, photos]);
+
+  return <>
+    <div className="catalogue-image">
+      <button className="catalogue-image-open" type="button" ref={openButton} onClick={() => setIsExpanded(true)} aria-label={`View full image of ${alt}`}>
+        <Image src={activePhoto} fill quality={88} sizes="(max-width: 700px) 84vw, (max-width: 1050px) 33vw, 25vw" alt="" />
+        <span className="photo-action">View full photo</span>
+      </button>
+      {hasMultipleImages && <div className="image-pagination" aria-label={`${alt} image selector`}>{photos.map((photo, index) => <button type="button" className={index === activeImage ? 'is-active' : ''} onClick={() => setActiveImage(index)} aria-label={`Show ${alt} photo ${index + 1}`} aria-pressed={index === activeImage} key={photo}><span className="sr-only">{index + 1}</span></button>)}</div>}
+    </div>
+    {isExpanded && createPortal(<div className="photo-viewer-backdrop" onClick={() => setIsExpanded(false)}><div className="photo-viewer" ref={viewer} role="dialog" aria-modal="true" aria-label={`${alt} full photo`} onClick={(event) => event.stopPropagation()}>
+      <div className="photo-viewer-header"><div><strong>{alt}</strong><span>{activeImage + 1} / {photos.length}</span></div><button type="button" ref={closeButton} onClick={() => setIsExpanded(false)} aria-label="Close full photo">Close ×</button></div>
+      <div className="photo-viewer-image"><Image src={activePhoto} fill quality={88} sizes="(max-width: 700px) 94vw, 80vw" alt={`${alt}, full photo ${activeImage + 1}`} /></div>
+      {hasMultipleImages && <div className="photo-viewer-pagination" aria-label={`${alt} full photo selector`}>{photos.map((photo, index) => <button type="button" className={index === activeImage ? 'is-active' : ''} onClick={() => setActiveImage(index)} aria-label={`View full photo ${index + 1} of ${alt}`} aria-pressed={index === activeImage} key={photo}>{index + 1}</button>)}</div>}
+    </div></div>, document.body)}
+  </>;
 }
 
 function EnquiryForm() {
