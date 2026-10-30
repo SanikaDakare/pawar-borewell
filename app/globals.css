@@ -128,3 +128,4 @@ footer{padding-top:44px;padding-bottom:86px}.footer p a{color:var(--ink);font-we
 
 /* Let the drilling scene show through the mobile hero without losing text contrast. */
 @media(max-width:700px){.hero-image{inset:0!important;width:100%!important;height:100%!important;opacity:1;object-position:center}.hero-shade{background:linear-gradient(90deg,rgba(9,35,49,.72),rgba(9,35,49,.38)),linear-gradient(0deg,rgba(9,35,49,.43),transparent 58%)}}
+@media(max-width:700px){.hero-content.hero-centered{width:calc(100% - 32px);margin-inline:auto}.hero .actions{max-width:100%}.hero .actions .button{min-width:0}.hero h1,.hero .lead{max-width:100%}}
