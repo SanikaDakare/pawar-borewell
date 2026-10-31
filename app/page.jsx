@@ -178,24 +178,44 @@ function EnquiryForm() {
   </form>;
 }
 
+function EnquiryModal({ onClose }) {
+  const dialogRef = useRef(null);
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    dialog.showModal();
+    dialog.querySelector('input[name="name"]')?.focus();
+    return () => { if (dialog.open) dialog.close(); };
+  }, []);
+
+  return createPortal(<dialog className="enquiry-dialog" ref={dialogRef} onClose={onClose} onClick={(event) => { if (event.target === event.currentTarget) event.currentTarget.close(); }} aria-label="Enquiry form / चौकशी फॉर्म">
+    <div className="enquiry-dialog-toolbar"><button type="button" onClick={() => dialogRef.current?.close()} aria-label="Close enquiry form">Close <span aria-hidden="true">×</span></button></div>
+    <EnquiryForm />
+  </dialog>, document.body);
+}
+
 export default function Home() {
   const [language, setLanguage] = useState('en');
+  const [isEnquiryOpen, setIsEnquiryOpen] = useState(false);
+  const enquiryTrigger = useRef(null);
+  useEffect(() => { if (window.location.hash === '#enquiry') setIsEnquiryOpen(true); }, []);
+  const closeEnquiry = () => { setIsEnquiryOpen(false); window.requestAnimationFrame(() => enquiryTrigger.current?.focus()); };
   const t = content[language];
   const productEnquiry = (product) => wa(`Hello, I need a price and availability for ${product}.`);
   return <>
-    <header className="header"><Brand /><nav className="desktop-nav" aria-label="Main navigation"><a href="#services">{t.nav[0]}</a><a href="#products">{t.nav[1]}</a><a href="#why-us">{t.nav[2]}</a><a href="#location">{t.nav[3]}</a></nav><div className="header-actions"><select className="language-picker" value={language} onChange={(event) => setLanguage(event.target.value)} aria-label="Choose language">{Object.entries(content).map(([code, item]) => <option value={code} key={code}>{item.name}</option>)}</select><a className="header-enquiry" href="#enquiry">{t.enquire}</a><a className="directions-link" href={directions} target="_blank" rel="noopener">{t.directions}</a><a className="top-whatsapp" href={wa('Hello, I want to enquire about borewell service in Kolhapur.')} target="_blank" rel="noopener">◔ {t.whatsapp}</a><a className="top-call" href={`tel:+91${primaryPhone}`}>☎ {t.call}</a></div></header>
+    <header className="header"><Brand /><nav className="desktop-nav" aria-label="Main navigation"><a href="#services">{t.nav[0]}</a><a href="#products">{t.nav[1]}</a><a href="#why-us">{t.nav[2]}</a><a href="#location">{t.nav[3]}</a></nav><div className="header-actions"><select className="language-picker" value={language} onChange={(event) => setLanguage(event.target.value)} aria-label="Choose language">{Object.entries(content).map(([code, item]) => <option value={code} key={code}>{item.name}</option>)}</select><button className="header-enquiry" type="button" ref={enquiryTrigger} onClick={() => setIsEnquiryOpen(true)}>{t.enquire}</button><a className="directions-link" href={directions} target="_blank" rel="noopener">{t.directions}</a><a className="top-whatsapp" href={wa('Hello, I want to enquire about borewell service in Kolhapur.')} target="_blank" rel="noopener">◔ {t.whatsapp}</a><a className="top-call" href={`tel:+91${primaryPhone}`}>☎ {t.call}</a></div></header>
     <main id="top">
       <section className="hero"><Image className="hero-image" src="/assets/drilling-site.jpeg" fill priority sizes="(max-width: 700px) 65vw, 45vw" alt="Pawar Borewell drilling rig at a Kolhapur site" /><div className="hero-shade" /><div className="shell hero-content hero-centered"><p className="kicker light">{t.heroKicker}</p><h1>{t.heroBefore} <em>{t.heroAccent}</em></h1><p className="lead">{t.heroLead}</p><div className="actions"><a className="button white" href={`tel:+91${primaryPhone}`}>{t.call} <Arrow /></a><a className="button hero-whatsapp" href={wa('Hello, I want to enquire about borewell service in Kolhapur.')} target="_blank" rel="noopener">◔ {t.whatsapp}</a></div><div className="stats">{t.stats.map(([title, detail]) => <div key={title}><b>{title}</b><span>{detail}</span></div>)}</div></div></section>
       <section className="trust-strip"><div className="shell">{t.audiences.map((audience) => <span key={audience}>{audience}</span>)}</div></section>
       <section className="shell intro"><p className="kicker">{t.introKicker}</p><div><h2>{t.introHeading}</h2><p>{t.introBody}</p></div></section>
       <section className="services" id="services"><div className="shell"><div className="section-head"><div><p className="kicker">{t.servicesKicker}</p><h2>{t.servicesHeading}</h2></div><p>{t.servicesBody}</p></div><div className="cards">{t.services.map(([title, body, action], index) => <article className={`card ${index === 0 ? 'featured' : ''}`} key={title}><i aria-hidden="true">0{index + 1}</i><h3>{title}</h3><p>{body}</p>{index === 0 ? <a href={wa('Hello, I want to discuss a borewell site.')} target="_blank" rel="noopener">{action} <Arrow /></a> : <span className="card-tag">{action}</span>}</article>)}</div></div></section>
       <section className="catalogue" id="products"><div className="shell"><div className="catalogue-head"><div><p className="kicker">{t.catalogueKicker}</p><h2>{t.catalogueHeading}</h2></div><p>{t.catalogueBody}</p></div><div className="product-grid">{t.products.map(([title, detail], index) => <article className="catalogue-card" key={title}><ProductImage photos={productPhotos[index]} alt={title} /><div className="catalogue-copy"><span className="availability">{t.availability}</span><h3>{title}</h3><p>{detail}</p><a href={productEnquiry(title)} target="_blank" rel="noopener">{t.price} <Arrow /></a></div></article>)}</div></div></section>
-      <section className="enquiry-section" id="enquiry"><div className="shell enquiry-layout"><div className="enquiry-intro"><p className="kicker">{t.contactKicker}</p><h2>{t.contactHeading}</h2><p>{t.contactBody}</p><div className="enquiry-benefits"><span>✓ Local Service Support</span><span>✓ Product And Installation Guidance</span><span>✓ Quick WhatsApp Response</span></div><div className="enquiry-contact"><a href={`tel:+91${primaryPhone}`}>Call: {primaryPhone.slice(0, 5)} {primaryPhone.slice(5)}</a><a href={wa('Hello, I want to enquire about Pawar Borewell services.')} target="_blank" rel="noopener">WhatsApp Us</a></div></div><EnquiryForm /></div></section>
       <section className="showcase" id="why-us"><div className="shell showcase-grid"><div><p className="kicker">{t.whyKicker}</p><h2>{t.whyHeading}</h2><p>{t.whyBody}</p><div className="reason-list">{t.reasons.map((reason) => <span key={reason}>✓ {reason}</span>)}</div></div><figure><Image src="/assets/products/pump-range.jpeg" fill sizes="(max-width: 700px) 100vw, 58vw" alt="Pawar Borewell product selection" /><figcaption>{t.guide}</figcaption></figure></div></section>
       <section className="shell coverage" id="location"><div><p className="kicker">{t.areaKicker}</p><h2>{t.areaHeading}</h2><p className="location-copy">{t.areaBody}</p><a className="location-button" href={directions} target="_blank" rel="noopener">{t.getDirections}</a></div><a className="map" href={directions} target="_blank" rel="noopener" aria-label="Get directions to Pawar Borewell's and Trader's"><b>● &nbsp;Gad-Mudshingi, Kolhapur</b><span>Pawar Borewell&apos;s &amp; Trader&apos;s</span><small>Open in Google Maps</small></a></section>
       <section className="shell faq"><p className="kicker">{t.faqKicker}</p><h2>{t.faqHeading}</h2>{t.faqs.map(([question, answer], index) => <details open={index === 0} key={question}><summary>{question}</summary><p>{answer}</p></details>)}</section>
     </main>
     <footer><div className="shell footer"><Brand /><p><a href={directions} target="_blank" rel="noopener">Mudshingi, Kolhapur</a><br />© {new Date().getFullYear()} Pawar Borewell&apos;s &amp; Trader&apos;s</p><p><a href={`tel:+91${primaryPhone}`}>{primaryPhone}</a><br /><a href={`tel:+91${secondaryPhone}`}>{secondaryPhone}</a></p></div></footer>
     <nav className="mobile-nav" aria-label="Quick contact"><a href={`tel:+91${primaryPhone}`}>☎ &nbsp; {t.call}</a><a href={wa('Hello, I want to enquire about Pawar Borewell services.')} target="_blank" rel="noopener">◔ &nbsp; {t.whatsapp}</a></nav>
+    {isEnquiryOpen && <EnquiryModal onClose={closeEnquiry} />}
   </>;
 }
