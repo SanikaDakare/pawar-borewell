@@ -153,3 +153,20 @@ footer{padding-top:44px;padding-bottom:86px}.footer p a{color:var(--ink);font-we
 .enquiry-dialog .form-heading h3{font-size:30px}
 .enquiry-dialog .enquiry-form input,.enquiry-dialog .enquiry-form select{min-height:46px}
 @media(max-width:700px){.enquiry-dialog{width:calc(100vw - 20px);max-height:calc(100dvh - 20px);border-radius:10px}.enquiry-dialog-toolbar{padding:10px 14px 2px}.enquiry-dialog .enquiry-form{padding:0 20px 24px;gap:15px}.enquiry-dialog .form-heading h3{font-size:27px}.enquiry-dialog .form-grid{grid-template-columns:1fr}}
+
+/* Compact contact footer with clear routes to the shop and enquiry form. */
+.site-footer{padding:46px 0 0;background:#0e3041;color:#f7f5ef}
+.footer-main{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,.9fr) minmax(0,.9fr);gap:42px;padding-bottom:38px}
+.site-footer .brand{width:max-content;max-width:100%;color:#fff}
+.site-footer .brand small{color:#c0d3d4}
+.footer-brand p{max-width:310px;margin:16px 0 0;color:#c0d3d4;font-size:14px;line-height:1.6}
+.footer-title{display:block;margin:3px 0 13px;color:#f29a70;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+.footer-location strong{display:block;font:700 19px/1.25 Georgia,serif}
+.footer-location a{display:inline-block;margin-top:18px;padding-bottom:4px;border-bottom:1px solid #f29a70;color:#fff;font-size:13px;font-weight:800;text-decoration:none}
+.footer-contact>a{display:block;width:max-content;margin-bottom:9px;color:#fff;font-size:15px;font-weight:700;text-decoration:none}
+.footer-contact button{min-height:38px;margin-top:7px;padding:8px 15px;border:1px solid #8aa9af;border-radius:5px;background:transparent;color:#fff;font:800 13px/1 Arial,sans-serif;cursor:pointer}
+.footer-contact button:hover{background:#fff;color:#0e3041}
+.site-footer a:hover{color:#f29a70}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:17px 0 21px;border-top:1px solid rgba(255,255,255,.17);color:#b4c9cb;font-size:12px}
+.footer-bottom a{color:#fff;font-weight:700;text-decoration:none}
+@media(max-width:700px){.site-footer{padding-top:30px}.footer-main{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:27px 16px;padding-bottom:26px}.footer-brand{grid-column:1/-1}.footer-brand p{max-width:290px;margin-top:10px;font-size:13px}.footer-title{margin:0 0 9px}.footer-location strong{font-size:16px}.footer-location a{margin-top:13px}.footer-contact>a{max-width:100%;font-size:13px;white-space:nowrap}.footer-contact button{margin-top:5px}.footer-bottom{align-items:flex-start;padding:15px 0 22px;font-size:11px}.footer-bottom span{max-width:220px}}
