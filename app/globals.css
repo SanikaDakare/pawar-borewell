@@ -129,3 +129,13 @@ footer{padding-top:44px;padding-bottom:86px}.footer p a{color:var(--ink);font-we
 /* Let the drilling scene show through the mobile hero without losing text contrast. */
 @media(max-width:700px){.hero-image{inset:0!important;width:100%!important;height:100%!important;opacity:1;object-position:center}.hero-shade{background:linear-gradient(90deg,rgba(9,35,49,.72),rgba(9,35,49,.38)),linear-gradient(0deg,rgba(9,35,49,.43),transparent 58%)}}
 @media(max-width:700px){.hero-content.hero-centered{width:calc(100% - 32px);margin-inline:auto}.hero .actions{max-width:100%}.hero .actions .button{min-width:0}.hero h1,.hero .lead{max-width:100%}}
+
+/* Service cards grow with their content, keeping the footer clear on small screens. */
+@media(max-width:700px){
+  .cards{align-items:stretch}
+  .card,.card.featured{display:flex;flex-direction:column;align-items:flex-start;min-height:300px;height:auto}
+  .card i{flex:none;margin-bottom:20px}
+  .card h3{margin:0 0 12px;line-height:1.16}
+  .card p{max-width:none;margin:0;line-height:1.5}
+  .card a,.card-tag{position:static;align-self:flex-start;margin-top:auto;padding-top:20px;line-height:1.35}
+}
