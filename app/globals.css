@@ -130,6 +130,26 @@ footer{padding-top:44px;padding-bottom:86px}.footer p a{color:var(--ink);font-we
 @media(max-width:700px){.hero-image{inset:0!important;width:100%!important;height:100%!important;opacity:1;object-position:center}.hero-shade{background:linear-gradient(90deg,rgba(9,35,49,.72),rgba(9,35,49,.38)),linear-gradient(0deg,rgba(9,35,49,.43),transparent 58%)}}
 @media(max-width:700px){.hero-content.hero-centered{width:calc(100% - 32px);margin-inline:auto}.hero .actions{max-width:100%}.hero .actions .button{min-width:0}.hero h1,.hero .lead{max-width:100%}}
 
+/* Obvious, touch-sized navigation for every horizontal carousel. */
+.swipe-carousel-nav{display:none}
+.image-pagination{gap:7px;padding:5px 6px;background:rgba(8,31,43,.86)}
+.image-pagination span{color:#fff;font:700 11px/1.1 Arial,sans-serif;white-space:nowrap}
+.image-pagination button,.image-pagination button.is-active{display:grid;place-items:center;width:38px;height:38px;min-width:38px;padding:0;border:1px solid rgba(255,255,255,.38);border-radius:50%;background:rgba(255,255,255,.14);color:#fff;font:700 22px/1 Arial,sans-serif}
+.image-pagination button:hover{background:rgba(255,255,255,.3)}
+.catalogue-image:has(.image-pagination) .photo-action{top:10px;bottom:auto;left:10px}
+@media(max-width:700px){
+  .swipe-carousel-nav{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 14px}
+  .swipe-hint{display:inline-flex;align-items:center;gap:6px;color:var(--ink);font-size:12px;font-weight:700;line-height:1.2}
+  .swipe-hint>span{color:var(--orange);font-size:22px;line-height:1}
+  .swipe-carousel-actions{display:flex;align-items:center;gap:7px;flex:none}
+  .swipe-count{min-width:38px;color:var(--ink);font-size:12px;font-weight:800;text-align:center;white-space:nowrap}
+  .swipe-carousel-actions button{display:grid;place-items:center;width:38px;height:38px;padding:0;border:1px solid #b6c5c7;border-radius:50%;background:#fff;color:var(--ink);font:700 26px/1 Arial,sans-serif;cursor:pointer;touch-action:manipulation}
+  .swipe-carousel-actions button:not(:disabled):hover{border-color:var(--ink);background:var(--ink);color:#fff}
+  .swipe-carousel-actions button:disabled{opacity:.42;cursor:default}
+  .swipe-carousel-actions button:focus-visible,.image-pagination button:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+  .cards,.product-grid{overscroll-behavior-inline:contain;-webkit-overflow-scrolling:touch}
+}
+
 /* Service cards grow with their content, keeping the footer clear on small screens. */
 @media(max-width:700px){
   .cards{align-items:stretch}
