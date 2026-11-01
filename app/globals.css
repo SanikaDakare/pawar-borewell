@@ -170,3 +170,18 @@ footer{padding-top:44px;padding-bottom:86px}.footer p a{color:var(--ink);font-we
 .footer-bottom{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:17px 0 21px;border-top:1px solid rgba(255,255,255,.17);color:#b4c9cb;font-size:12px}
 .footer-bottom a{color:#fff;font-weight:700;text-decoration:none}
 @media(max-width:700px){.site-footer{padding-top:30px}.footer-main{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:27px 16px;padding-bottom:26px}.footer-brand{grid-column:1/-1}.footer-brand p{max-width:290px;margin-top:10px;font-size:13px}.footer-title{margin:0 0 9px}.footer-location strong{font-size:16px}.footer-location a{margin-top:13px}.footer-contact>a{max-width:100%;font-size:13px;white-space:nowrap}.footer-contact button{margin-top:5px}.footer-bottom{align-items:flex-start;padding:15px 0 22px;font-size:11px}.footer-bottom span{max-width:220px}}
+
+/* A real map preview replaces the decorative location tile. The overlay opens directions
+   on tap, leaving touch scrolling to the page instead of the embedded map. */
+.coverage{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px}
+.location-map{position:relative;height:340px;overflow:hidden;border:1px solid #dce2dc;border-radius:12px;background:#dce5df;box-shadow:0 14px 34px rgba(18,52,72,.12)}
+.location-map iframe{display:block;width:100%;height:100%;border:0;pointer-events:none}
+.location-map-link{position:absolute;inset:0;display:flex;align-items:flex-end;padding:12px;color:var(--ink);text-decoration:none}
+.map-address{display:flex;flex:1;min-width:0;min-height:64px;flex-direction:column;justify-content:center;padding:10px 15px;border-radius:8px 0 0 8px;background:#fff;box-shadow:0 5px 24px rgba(9,35,49,.2)}
+.map-address span{color:var(--muted);font-size:11px;font-weight:700;letter-spacing:.03em}
+.map-address strong{overflow:hidden;font:700 15px/1.25 Georgia,serif;text-overflow:ellipsis;white-space:nowrap}
+.map-link-cta{display:grid;min-height:64px;place-items:center;padding:10px 16px;border-radius:0 8px 8px 0;background:var(--ink);box-shadow:0 5px 24px rgba(9,35,49,.2);color:#fff;font-size:12px;font-weight:800;white-space:nowrap}
+.location-map-link:hover .map-link-cta,.location-map-link:focus-visible .map-link-cta{background:var(--orange)}
+.location-map-link:focus-visible{outline:3px solid var(--orange);outline-offset:-4px}
+@media(max-width:700px){.coverage .location-map{height:270px;margin-top:25px}.location-map-link{padding:9px}.map-address{min-height:70px;padding:9px 11px}.map-address strong{overflow:visible;font-size:13px;text-overflow:clip;white-space:normal}.map-link-cta{min-height:70px;padding:9px 12px;font-size:11px}}
+@media(max-width:360px){.header{gap:6px;padding-inline:10px}.header .brand-logo{width:30px;height:30px}.header .brand span>b{font-size:13px}.header .brand small{display:none}.header .language-picker{width:62px;font-size:9px}.header .header-enquiry{padding-inline:7px;font-size:10px}}
