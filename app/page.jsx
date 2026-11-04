@@ -10,7 +10,7 @@ const directions = 'https://maps.app.goo.gl/Q7eD3jaKAxFDEyPf8?g_st=aw';
 const mapPreview = 'https://maps.google.com/maps?q=Gad-Mudshingi%2C%20Kolhapur%2C%20Maharashtra&t=&z=14&ie=UTF8&iwloc=&output=embed';
 const wa = (message) => `https://wa.me/91${primaryPhone}?text=${encodeURIComponent(message)}`;
 const productPhotos = [
-  ['/assets/products/submersible-pump.jpeg'],
+  ['/assets/products/submersible-pump.jpeg', '/assets/products/ssp-submersible-poster.jpeg'],
   ['/assets/products/openwell-pump.jpeg'],
   ['/assets/products/pump-guard-panel.jpeg', '/assets/products/pump-guard.jpeg'],
   ['/assets/products/fittings.jpeg'],
