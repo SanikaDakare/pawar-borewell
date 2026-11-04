@@ -301,3 +301,18 @@ html{scroll-padding-top:82px}
   .hero-en h1 em{white-space:normal}
   .mobile-nav>a,.mobile-explore>summary{font-size:11px}
 }
+
+/* The drilling service uses the customer's site photograph, with a full-photo view on tap. */
+.card .service-card-copy{display:flex;flex:1;flex-direction:column;align-items:flex-start;width:100%;min-width:0}
+.card.featured.card-with-photo{padding:0;overflow:hidden;border-radius:6px}
+.card-with-photo .service-card-copy{padding:20px 26px 25px}
+.service-photo{position:relative;flex:none;width:100%}
+.service-photo .catalogue-image{height:156px}
+.service-photo .catalogue-image img{object-position:center 64%!important}
+.service-photo .photo-action{right:10px;bottom:10px}
+.service-photo i{position:absolute;z-index:5;top:12px;left:12px;display:grid;place-items:center;width:38px;height:38px;margin:0;border:1px solid #d9a183;border-radius:50%;background:rgba(255,255,255,.96);color:var(--orange);font:800 11px/1 Arial,sans-serif;letter-spacing:.08em;pointer-events:none}
+@media(max-width:700px){
+  .card.featured.card-with-photo{padding:0}
+  .card-with-photo .service-card-copy{padding:18px 22px 22px}
+  .service-photo .catalogue-image{height:160px}
+}
