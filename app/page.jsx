@@ -4,11 +4,12 @@ import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
-const primaryPhone = '9421107110';
-const additionalPhones = ['7020989156', '7798001919'];
+const primaryPhone = '7020989156';
+const additionalPhones = ['9421107110', '7798001919'];
+const whatsappPhone = '9421107110';
 const directions = 'https://maps.app.goo.gl/Q7eD3jaKAxFDEyPf8?g_st=aw';
 const mapPreview = 'https://maps.google.com/maps?q=Gad-Mudshingi%2C%20Kolhapur%2C%20Maharashtra&t=&z=14&ie=UTF8&iwloc=&output=embed';
-const wa = (message) => `https://wa.me/91${primaryPhone}?text=${encodeURIComponent(message)}`;
+const wa = (message) => `https://wa.me/91${whatsappPhone}?text=${encodeURIComponent(message)}`;
 const productPhotos = [
   ['/assets/products/submersible-pump.jpeg', '/assets/products/ssp-submersible-poster.jpeg'],
   ['/assets/products/openwell-pump.jpeg'],
