@@ -1,6 +1,6 @@
 # Pawar Borewell's & Trader's
 
-Mobile-first one-page marketing site for Pawar Borewell's & Trader's, serving Kolhapur city and district.
+Mobile-first one-page marketing site for Pawar Borewell's & Trader's, based in Gad-Mudshingi, Kolhapur and serving Maharashtra.
 
 ## Run locally
 
@@ -11,7 +11,4 @@ pnpm dev
 
 The site is a production-ready Next.js/React application. Vercel automatically detects and builds it.
 
-## Before publishing
-
-- Add a final vector business logo when available.
-- Update the Google Business Profile URL when confirmed.
+The website includes English, Marathi and Hindi content, a WhatsApp enquiry flow, an interactive product gallery, a map preview and structured business metadata. Contact numbers and map URLs are kept in `app/site-config.js`.
