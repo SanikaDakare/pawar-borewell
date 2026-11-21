@@ -1,4 +1,4 @@
-export const siteUrl = 'https://pawar-borewell.vercel.app';
+export const siteUrl = 'https://www.pawarborewells.com';
 export const contactPhones = ['7020989156', '9421107110', '7798001919'];
 export const primaryPhone = contactPhones[0];
 export const whatsappPhone = contactPhones[1];
