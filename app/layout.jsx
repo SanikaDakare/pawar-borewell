@@ -2,6 +2,7 @@ import './globals.css';
 import './directions.css';
 import './contact.css';
 import './quality.css';
+import './ui-refresh.css';
 import { contactPhones, siteUrl } from './site-config';
 
 export const metadata = {
