@@ -33,3 +33,66 @@
  .enquiry-dialog{max-height:calc(100dvh - 24px)}
 }
 @media(max-width:360px){.header .brand small{display:none}.header .brand span>b{font-size:14px}.header .language-picker{min-width:68px}}
+
+/* Responsive refinement: clear hierarchy, comfortable controls and compact spacing. */
+html{scroll-padding-top:90px}
+body{-webkit-text-size-adjust:100%}
+.header .brand{min-width:0}
+.desktop-nav a,.footer-bottom a{text-underline-offset:4px}
+.desktop-nav a{padding-block:9px}
+.header-enquiry,.enquiry-submit{cursor:pointer}
+.header-enquiry,.button,.enquiry-submit,.location-map-link,.mobile-nav a{transition:background-color .18s ease,color .18s ease,box-shadow .18s ease}
+.header-enquiry:hover,.enquiry-submit:hover{filter:brightness(1.12)}
+.hero .lead{line-height:1.65}
+.hero .button:focus-visible{outline-color:#fff}
+.section-head h2,.catalogue-head h2,.coverage h2,.faq h2{text-wrap:balance}
+.services .card h3,.catalogue-copy h3{overflow-wrap:break-word}
+.card .service-card-copy p{max-width:38ch}
+.card .service-card-copy a,.catalogue-copy a{line-height:1.4;text-underline-offset:4px}
+.catalogue-card{overflow:hidden;border-radius:10px}
+.catalogue-image-open:hover .photo-action{box-shadow:0 4px 16px rgba(0,0,0,.25)}
+.image-pagination{gap:9px}
+.image-pagination button{cursor:pointer}
+.showcase figure{overflow:hidden;border-radius:10px}
+.reason-list span{line-height:1.5}
+.location-map iframe{display:block}
+.location-map-link:focus-visible{outline-offset:-4px}
+.faq summary{cursor:pointer;line-height:1.3}
+.faq details p{line-height:1.65}
+.footer-contact a,.footer-location a{text-underline-offset:4px}
+.footer-bottom{gap:16px}
+.enquiry-dialog-toolbar button,.photo-viewer-header button,.photo-viewer-pagination button{min-height:44px}
+.enquiry-form input,.enquiry-form select,.enquiry-form textarea{font-size:16px}
+.enquiry-form label{line-height:1.45}
+.enquiry-form textarea{resize:vertical}
+.enquiry-submit{min-height:50px}
+.mobile-nav a,.mobile-explore summary{touch-action:manipulation}
+@media(max-width:700px){
+ html{scroll-padding-top:78px}
+ .shell{width:calc(100% - 32px)}
+ .header .brand span>b{white-space:nowrap}
+ .hero h1{letter-spacing:-.035em}
+ .hero .lead{line-height:1.6}
+ .section-head,.catalogue-head{gap:14px}
+ .card .service-card-copy a{margin-top:auto}
+ .swipe-carousel-nav{min-height:44px}
+ .catalogue-copy h3{line-height:1.18}
+ .catalogue-copy a{min-height:44px}
+ .coverage,.faq{scroll-margin-top:78px}
+ .location-map{min-width:0}
+ .faq details{padding-inline:14px}
+ .faq summary{padding-inline:4px 30px}
+ .faq details p{padding-inline:4px}
+ .enquiry-dialog .form-heading small{font-size:13px}
+ .mobile-nav a,.mobile-explore summary{min-height:44px}
+}
+@media(max-width:360px){
+ .header .brand-logo{width:30px;height:30px}
+ .header .brand span>b{font-size:13px}
+ .hero h1{font-size:clamp(31px,10vw,36px)}
+ .swipe-carousel-nav{gap:6px}
+}
+@media(hover:hover){
+ .catalogue-card{transition:box-shadow .2s ease,transform .2s ease}
+ .catalogue-card:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(18,52,72,.14)}
+}
