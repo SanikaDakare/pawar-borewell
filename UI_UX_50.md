@@ -54,3 +54,10 @@ This checklist records the scope of the UI review. Items describe implementation
 50. Account for mobile bottom safe areas and persistent contact controls.
 
 Verification: production build required; mobile and desktop visual, keyboard and device testing are not implied by this source checklist.
+
+## Browser verification (21 November 2026)
+
+- Chromium desktop and mobile-sized viewports: 320, 390, 768 and 1440 CSS pixels; no document-level horizontal overflow or JavaScript page errors in these checks.
+- Inspected desktop and mobile screenshots; lazy-loaded showcase image loaded after scrolling.
+- Tested service and product next controls, English/Marathi/Hindi language switching, enquiry modal, required-name validation, Devanagari phone digits, simulated WhatsApp handoff, focus restoration, FAQ expansion and all three phone links.
+- Tested opening and closing the photo viewer with Escape. Reduced-motion and keyboard behavior were reviewed in source; real-device testing, full screen-reader testing, external Google Maps rendering and actual WhatsApp delivery were not verified.
