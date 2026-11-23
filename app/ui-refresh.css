@@ -131,7 +131,7 @@ body{background:#f7faf9;color:var(--ink)}
 .reason-list span{color:#eff8f6}
 .coverage{padding-block:clamp(54px,7vw,92px)}
 .location-map{border:1px solid #d6e4e0;border-radius:16px;background:#e8f1ee}
-.location-map-link{background:#fff}
+.location-map-link{background:linear-gradient(to bottom,#fff 0 104px,transparent 104px)}
 .map-link-cta{border-radius:8px}
 .faq{border-top:1px solid #dfebe7}
 .faq details{border-color:#dce9e5;border-radius:12px;box-shadow:0 4px 14px rgba(16,53,74,.035)}
@@ -144,6 +144,8 @@ body{background:#f7faf9;color:var(--ink)}
  .hero-shade{background:linear-gradient(90deg,rgba(8,38,52,.82),rgba(8,38,52,.46)),linear-gradient(0deg,rgba(8,38,52,.55),transparent 65%)}
  .services,.catalogue,.showcase,.faq{padding-block:42px}
  .coverage{padding-block:42px}
+ .location-map-link{background:linear-gradient(to bottom,#fff 0 98px,transparent 98px)}
+ .map-link-cta{min-height:44px}
  .card,.catalogue-card{border-radius:12px}
  .service-photo .catalogue-image{height:180px}
  .catalogue-image{height:240px}
